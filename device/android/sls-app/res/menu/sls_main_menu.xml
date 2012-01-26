@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuItemSettings" android:title="@string/menu_item_settings_text" />
+    <item android:id="@+id/menuItemLog" android:title="@string/menu_item_log_text" />
+    <item android:id="@+id/menuItemAuthTest" android:title="@string/menu_item_auth_text" />
+    <item android:id="@+id/menuItemExit" android:title="@string/menu_item_exit_text" />
+</menu>

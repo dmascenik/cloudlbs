@@ -1,0 +1,56 @@
+package authentication;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "AuthenticationProto";
+
+import "search.proto";
+
+enum AuthenticationStatus {
+    SUCCESS = 1;
+    FAILED = 2;
+}
+
+message SessionAuthenticationMessage {
+
+    optional string email = 1;
+    optional string password = 2;
+    optional string sessionId = 3;
+    optional AuthenticationStatus status = 4 [default = FAILED];
+    repeated string grantedAuthority = 5;
+    optional bool noSuchUser = 6 [default = false];
+    optional bool passwordExpired = 7 [default = false];
+    optional bool invalidPassword = 8 [default = false];
+    optional bool userDisabled = 9 [default = false];
+    optional string failedReason = 10;
+    optional string scopeGuid = 11;
+    optional string username = 12;
+    optional string firstName = 13;
+    optional string lastName = 14;
+
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated SessionAuthenticationMessage items = 1003;
+    }    
+}
+
+message SignatureAuthenticationMessage {
+
+    optional string clientId = 1;
+    optional string signature = 2;
+    optional string message = 3;
+    optional AuthenticationStatus status = 4 [default = FAILED];
+    repeated string grantedAuthority = 5;
+    optional bool noSuchClient = 6 [default = false];
+    optional bool keyExpired = 7 [default = false];
+    optional bool invalidSignature = 8 [default = false];
+    optional bool accountDisabled = 9 [default = false];
+    optional string failedReason = 10;
+    optional string scopeGuid = 11;
+
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated SignatureAuthenticationMessage items = 1004;
+    }    
+}

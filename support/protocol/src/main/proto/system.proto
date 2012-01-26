@@ -1,0 +1,25 @@
+package system;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "SystemProto";
+
+import "search.proto";
+
+message SystemPropertyMessage {
+
+    optional string guid = 1;
+    optional int64 version = 2;
+    optional int64 createDate = 3;
+
+    optional string key = 4;
+    optional string prettyName = 5;
+    optional string description = 6;
+    optional string value = 7;
+    optional string category = 8;
+    
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated SystemPropertyMessage items = 1007;
+    }    
+}

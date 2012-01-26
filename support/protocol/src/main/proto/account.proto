@@ -1,0 +1,30 @@
+package account;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "AccountProto";
+
+import "search.proto";
+import "Device.proto";
+
+message ServiceAccountMessage {
+
+    optional string guid = 1;
+    optional int64 createDate = 2;
+    optional int64 version = 3;
+    optional string name = 4;
+    optional string description = 5;
+    optional string status = 6;
+    optional string scopeGuid = 7;
+    optional string publicKey = 8;
+    optional string privateKey = 9;
+//    optional UserAccountMessage administrativeContact = 10;
+//    optional UserAccountMessage billingContact = 11;
+//    optional UserAccountMessage technicalContact = 12;
+    repeated string grantedAuthority = 13;
+    
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated ServiceAccountMessage items = 1001;
+    }    
+}

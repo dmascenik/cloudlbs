@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest package="com.cloudlbs.core.sls" android:versionCode="1" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0-SNAPSHOT">
+  <uses-sdk android:minSdkVersion="8"/>
+</manifest>

@@ -1,0 +1,21 @@
+package entity;
+
+option java_package = "com.cloudlbs.sls.protocol";
+option java_outer_classname = "AppDetailsProto";
+
+message AppDetailsMessage {
+    
+    required string apiKey = 1;
+    optional string certificateFingerprint = 2;
+    
+    // On Android, this is the package name
+    optional string appIdentifier = 3;
+    
+    optional string appName = 4;
+    optional string appGuid = 5;
+    optional bool usesUserAccounts = 6;
+    optional int64 apiKeyExpirationDate = 8;
+    optional bool isValid = 9;
+    required string deviceUniqueId = 10;
+    
+}

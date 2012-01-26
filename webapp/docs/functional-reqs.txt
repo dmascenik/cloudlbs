@@ -1,0 +1,44 @@
+CloudLBS Web Application
+------------------------------------
+Functional Requirements:
+
+1. DONE - Site Landing Page - Has link to log in (existing users) or create an 
+   account (new users), as well as space for logos, links, blurbs, etc.
+   
+2. New User Page - Not GWT. Just a form requesting basic user account info.
+
+3. New User Creation Process:
+   a. Person fills out form on New User Page
+   b. Basic user account is created in PENDING state
+   c. An email is sent to the person with a confirmation link
+   d. When they click the confirmation link, account goes to OK state, and 
+      user lands on "You're confirmed" page with link to log in.
+
+4. Login Page - Plain-old Spring Security login form with styles.
+
+5. Main App Landing Page (Basic User Account):
+
+   a. Show user's name
+   b. Link to log out - returns to Site Landing Page
+   c. Link to user Settings (name spelling, password, etc)
+   
+   d. My Devices:
+
+      This is the list of any devices that the user has ever signed in on
+      via any app. It is the exhaustive list of devices that ever provided
+      any non-anonymous location data for this user.
+      
+      Devices can be in two states - Confirmed and Unconfirmed
+      
+      Unconfirmed devices are those that the user may have signed in on, but
+      does not own. These may belong to someone else in the system, or no one
+      in the system. The user cannot remotely manage application settings
+      on an unconfirmed device.
+      
+      Confirmed devices are those confirmed as belonging exclusively to the
+      user. A device can only be confirmed for a single user. A user may
+      remotely manage application settings, among other things, on a 
+      confirmed device. See "Confirming a Device," and "Unconfirming a
+      Device."
+      
+      

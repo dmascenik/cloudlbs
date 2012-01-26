@@ -1,0 +1,30 @@
+package work;
+
+option java_package = "com.cloudlbs.core.utils.test";
+option java_outer_classname = "ItemProto";
+
+import "search.proto";
+import "thing.proto";
+
+message ItemMessage {
+  	optional string guid = 1;
+    optional int64 version = 2;
+    optional int64 createDate = 3;
+    optional int64 modDate = 4;
+    optional ItemMessage parent = 5;
+    required string reqString = 6;
+    optional int32 anInt = 7 [default = 1];    
+	repeated string label = 8;
+	optional ThingMessage thing = 9;
+	optional string strDate = 10;	
+	repeated ItemMessage child = 11;
+    optional string protoOnlyString = 12;
+
+	extensions 1000 to max;
+	
+  	extend search.SearchResultMessage {
+        repeated ItemMessage items = 8001;
+    }
+}
+ 
+ 

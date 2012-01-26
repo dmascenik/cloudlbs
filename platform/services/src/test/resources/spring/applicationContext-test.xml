@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Alternate annotation handler adapter makes Controller tests work since 
+		the context would otherwise contain 2 annotation handlers of the same class 
+		and a handler bean cannot be uniquely retrieved from the context. -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=10" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="cloudlbs" />
+
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.hbm2ddl.auto" value="create" />
+				<entry key="hibernate.search.default.directory_provider"
+					value="org.hibernate.search.store.RAMDirectoryProvider" />
+				<!-- NOT REQUIRED FOR IN-MEMORY -->
+				<entry key="hibernate.search.default.indexBase" value="target/index" />
+
+			</map>
+		</property>
+	</bean>
+
+	<bean class="com.cloudlbs.platform.domain.SampleData" />
+	<bean class="com.cloudlbs.platform.domain.SampleDataInitializer" />
+
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:/sample-config/ehcache.xml" />
+	</bean>
+
+	<import resource="applicationContext-base.xml" />
+	<import resource="webmvc-config.xml" />
+
+</beans>

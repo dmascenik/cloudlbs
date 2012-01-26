@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/jee 
+        http://www.springframework.org/schema/jee/spring-jee-3.0.xsd   
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+        http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring 
+        http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+
+	<context:component-scan base-package="com.cloudlbs.platform" />
+	<context:annotation-config />
+
+	<!-- DAOs -->
+	<bean class="com.cloudlbs.core.utils.dao.JpaGenericDao" id="systemPropertyDao">
+		<constructor-arg value="com.cloudlbs.platform.domain.SystemProperty" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.dao.JpaGenericDao" id="roleDao">
+		<constructor-arg value="com.cloudlbs.platform.domain.Role" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.dao.JpaGenericDao" id="userAccountDao">
+		<constructor-arg value="com.cloudlbs.platform.domain.UserAccount" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.dao.JpaGenericDao" id="deviceDao">
+		<constructor-arg value="com.cloudlbs.platform.domain.Device" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.dao.JpaGenericDao" id="appDao">
+		<constructor-arg value="com.cloudlbs.platform.domain.App" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.dao.JpaGenericDao" id="apiKeyDao">
+		<constructor-arg value="com.cloudlbs.platform.domain.ApiKey" />
+	</bean>
+
+	<!-- Message converters -->
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="roleMessageConverter">
+		<constructor-arg
+			value="com.cloudlbs.platform.protocol.UserAccountProto$RoleMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.Role" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="userAccountMessageConverter">
+		<constructor-arg
+			value="com.cloudlbs.platform.protocol.UserAccountProto$UserAccountMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.UserAccount" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="appMessageConverter">
+		<constructor-arg value="com.cloudlbs.platform.protocol.AppProto$AppMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.App" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="deviceMessageConverter">
+		<constructor-arg
+			value="com.cloudlbs.platform.protocol.DeviceProto$DeviceMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.Device" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="systemPropertyMessageConverter">
+		<constructor-arg
+			value="com.cloudlbs.platform.protocol.SystemProto$SystemPropertyMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.SystemProperty" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="apiKeyMessageConverter">
+		<constructor-arg
+			value="com.cloudlbs.platform.protocol.ApiKeyProto$ApiKeyMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.ApiKey" />
+	</bean>
+	<bean class="com.cloudlbs.core.utils.protocol.ProtobufMessageConverter"
+		id="locationReadingMessageConverter">
+		<constructor-arg
+			value="com.cloudlbs.sls.protocol.LocationProto$LocationReadingMessage" />
+		<constructor-arg value="com.cloudlbs.platform.domain.LocationReading" />
+	</bean>
+
+	<!-- Event driven beans -->
+
+	<bean id="eventDispatcher" class="com.cloudlbs.core.utils.events.EventDispatcher">
+		<property name="listeners">
+			<list>
+				<ref bean="hackeyLocationSharingService" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Miscellaneous Beans -->
+	<bean
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"
+		id="shaPasswordEncoder" />
+
+	<bean class="com.cloudlbs.core.utils.remote.SecureRestTemplate"
+		id="secureRestTemplate">
+		<constructor-arg value="com.cloudlbs.platform.protocol" />
+	</bean>
+
+	<!-- Transaction Management -->
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- EhCache configuration -->
+	<ehcache:config cache-manager="cacheManager">
+		<ehcache:evict-expired-elements
+			interval="60" />
+	</ehcache:config>
+	<ehcache:annotation-driven />
+
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true" />
+	</bean>
+
+	<bean class="net.sf.ehcache.management.ManagementService"
+		init-method="init">
+		<constructor-arg ref="cacheManager" />
+		<constructor-arg ref="mbeanServer" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+		<constructor-arg value="true" />
+	</bean>
+</beans>

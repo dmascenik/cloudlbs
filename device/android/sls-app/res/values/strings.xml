@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_icon_name">Location Manager</string>
+	<string name="app_name">Secure Location Service</string>
+	<string name="authTestBanner">Authentication Test</string>
+	<string name="authTestButtonText">Test</string>
+	<string name="authResetButtonText">Reset</string>
+	<string name="app_by_line">by CloudLBS</string>
+	<string name="disabledOn">Disabled</string>
+	<string name="disabledOff">Ready</string>
+    <string name="checkin">Check In</string>
+    <string name="checkStatus">Check Status</string>
+	<string name="pingingOn">Pinging...</string>
+	<string name="pingingOff">Pinger Off</string>
+	<string name="authUsernameLabel">Username</string>
+	<string name="authPasswordLabel">Password</string>
+	<string name="authAppKeyLabel">App Key</string>
+	<string name="service_name">Secure Location Service</string>
+	<string name="menu_item_exit_text">Exit</string>
+    <string name="menu_item_auth_text">Auth Test</string>
+	<string name="menu_item_log_text">Log</string>
+	<string name="menu_item_settings_text">Settings</string>
+	<string name="settings_conn_heading">Connection</string>
+	<string name="settings_hostname_label">Host</string>
+	<string name="settings_port_label">Port</string>
+	<string name="settings_usehttps_label">Use HTTPS</string>
+	<string name="settings_debug_heading">Debugging</string>
+	<string name="settings_emulatormode_label">Emulator Mode</string>
+	<string name="settings_logbuffer_label">Log Size (lines)</string>
+	<string name="settings_defaults_button">Defaults</string>
+	<string name="settings_apply_button">Apply</string>
+</resources>

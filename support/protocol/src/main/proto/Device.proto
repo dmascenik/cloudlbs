@@ -1,0 +1,22 @@
+package device;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "DeviceProto";
+
+import "search.proto";
+
+message DeviceMessage {
+
+    optional string guid = 1;
+    optional int64 createDate = 2;
+    optional int64 version = 3;
+    optional string deviceUniqueId = 4;
+    optional string xmppUsername = 6;
+    optional string xmppPassword = 7;
+    
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated DeviceMessage items = 1008;
+    }    
+}

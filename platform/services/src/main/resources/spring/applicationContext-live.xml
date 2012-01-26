@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+	   http://www.springframework.org/schema/context 
+	   http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+       http://www.springframework.org/schema/jee 
+       http://www.springframework.org/schema/jee/spring-jee-3.0.xsd   
+	   http://www.springframework.org/schema/security 
+	   http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/dataSource" />
+
+	<import resource="applicationContext-base.xml" />
+
+	<!-- Application initializers -->
+	<bean class="com.cloudlbs.core.utils.ApplicationInitializer">
+		<constructor-arg>
+			<list>
+				<bean class="com.cloudlbs.platform.initializer.DatabaseInitializer" />
+				<bean class="com.cloudlbs.platform.initializer.ServiceInitializer" />
+				<bean class="com.cloudlbs.platform.initializer.XmppInitializer" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Security configuration -->
+	<bean id="preauthAuthFilter"
+		class="org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter">
+		<property name="principalRequestHeader" value="X-PreAuth-User" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="exceptionIfHeaderMissing" value="false" />
+	</bean>
+	<bean id="preauthAuthProvider"
+		class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+		<property name="preAuthenticatedUserDetailsService">
+			<bean id="userDetailsServiceWrapper"
+				class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+				<property name="userDetailsService" ref="userDetailsService" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean class="com.cloudlbs.platform.service.UserAccountDetailsService"
+		id="userDetailsService" />
+
+	<security:http security="none" pattern="/index.html" />
+	<security:http security="none" pattern="/device/connection/**" />
+	<security:http security="none" pattern="/device/app/**" />
+	<security:http security="none" pattern="/device/auth/**" />
+	<security:http security="none" pattern="/internal/**" />
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		<security:custom-filter ref="headerAuthenticationFilter"
+			before="FORM_LOGIN_FILTER" />
+		<security:custom-filter position="PRE_AUTH_FILTER"
+			ref="preauthAuthFilter" />
+	</security:http>
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			ref="preauthAuthProvider" />
+		<security:authentication-provider
+			user-service-ref="userDetailsService">
+			<security:password-encoder ref="shaPasswordEncoder">
+				<security:salt-source user-property="guid" />
+			</security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

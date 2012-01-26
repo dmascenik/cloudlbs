@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.cloudlbs</groupId>
+		<artifactId>com.cloudlbs</artifactId>
+		<version>0-SNAPSHOT</version>
+	</parent>
+	<artifactId>cloudlbs-webapp</artifactId>
+	<name>CloudLBS Webapp</name>
+	<packaging>war</packaging>
+
+	<properties>
+		<!-- Don't put WARs in the Maven repo -->
+		<disable.artifact.deployment>true</disable.artifact.deployment>
+
+		<maven.test.skip>true</maven.test.skip>
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.cloudlbs.support</groupId>
+			<artifactId>protocol</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.cloudlbs.support</groupId>
+			<artifactId>utils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.ehcache-spring-annotations</groupId>
+			<artifactId>ehcache-spring-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-terracotta</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.spring4gwt</groupId>
+			<artifactId>spring4gwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<!-- Generate compiled stuff in the folder used for development mode -->
+		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/webapp/${artifactId}</directory>
+						</fileset>
+						<fileset>
+							<directory>src/main/webapp/WEB-INF/deploy</directory>
+						</fileset>
+						<fileset>
+							<directory>src/main/gwt-unitCache</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<!-- GWT Maven Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-user</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-dev</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-servlet</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+					    <id>prepare-package</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+						</goals>
+					</execution>
+					<execution>
+					    <id>generateAsync</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generateAsync</goal>
+							<goal>i18n</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<runTarget>main.html</runTarget>
+					<compileReport>true</compileReport>
+					<module>com.cloudlbs.web.main</module>
+					<logLevel>INFO</logLevel>
+					<i18nMessagesBundle>com.cloudlbs.web.client.Messages</i18nMessagesBundle>
+					<copyWebapp>true</copyWebapp>
+				</configuration>
+			</plugin>
+
+			<!-- Google Plugin for Eclipse (GPE) won't see the source generated above 
+				by generateAsync unless it is exposed as an additional source dir -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/gwt</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/webapp</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- Mark the project for Google Plugin for Eclipse (GPE) -->
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+					<additionalBuildcommands>
+						<buildCommand>
+							<name>com.google.gwt.eclipse.core.gwtProjectValidator</name>
+						</buildCommand>
+					</additionalBuildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<!-- Deploy to DEV will happen if DEV accepts this version number for 
+						autodeployment. This task deploys to two separate clustered nodes. -->
+					<execution>
+						<id>dev-deploy-war</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks unless="disable.tomcat.deploy">
+								<exec executable="tomcat-deploy.sh">
+									<arg value="com/cloudlbs" />
+									<arg value="${project.artifactId}" />
+									<arg value="${project.version}" />
+									<arg value="${project.packaging}" />
+									<arg value="jclust01.cloudlbs.com" />
+									<arg value="webapp" />
+									<arg value="ROOT" />
+								</exec>
+								<exec executable="tomcat-deploy.sh">
+									<arg value="com/cloudlbs" />
+									<arg value="${project.artifactId}" />
+									<arg value="${project.version}" />
+									<arg value="${project.packaging}" />
+									<arg value="jclust02.cloudlbs.com" />
+									<arg value="webapp" />
+									<arg value="ROOT" />
+								</exec>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- "mvn tomcat:run" does not include the GWT generated files. For running 
+				as a fully compiled WAR in production mode, use "mvn tomcat:run-war" -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<contextFile>src/test/tomcat/context.xml</contextFile>
+					<path>/cloudlbs</path>
+					<port>9030</port>
+					<systemProperties>
+						<log4j.configuration>sample-config/tomcat-run-log4j.xml</log4j.configuration>
+						<system.properties.base>http://localhost:9010/accounts</system.properties.base>
+						<system.properties.url>/internal/sysprop</system.properties.url>
+					</systemProperties>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+						<version>1.2.16</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-servlet</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.google.gwt</groupId>
+						<artifactId>gwt-user</artifactId>
+						<version>${gwt.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

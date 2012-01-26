@@ -1,0 +1,21 @@
+package security;
+
+option java_package = "com.cloudlbs.sls.protocol";
+option java_outer_classname = "AuthenticationProto";
+
+message AuthenticationMessage {
+    
+    required string username = 1;
+    optional string password = 2;
+    required string appGuid = 3;
+    optional string token = 4;
+    optional bool success = 5 [default = false];
+    required string deviceUniqueId = 6;
+    
+    optional bool badCredentials = 8 [default = false];
+    optional bool userDisabled = 9 [default = false];
+    optional bool appDisabled = 10 [default = false];
+    optional bool appNotFound = 11 [default = false];
+    optional bool invalidToken = 12 [default = false];
+
+}

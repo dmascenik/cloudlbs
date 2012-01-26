@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:gravity="center_horizontal"
+	android:padding="10px" android:background="#FFFFFF">
+
+	<TextView android:id="@+id/authenticationTestBanner"
+		android:layout_width="fill_parent" android:textColor="#000000"
+		android:layout_height="wrap_content" android:text="@string/authTestBanner"
+		android:textSize="18px" android:textStyle="bold" android:gravity="center_horizontal"
+		android:layout_marginTop="10px" android:layout_marginBottom="10px"
+		android:layout_weight="0" />
+
+	<TableLayout android:id="@+id/authTestTable"
+		android:gravity="center_horizontal" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TableRow android:id="@+id/authTestTableRow1"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center_horizontal">
+			<TextView android:text="@string/authUsernameLabel"
+				android:textColor="#000000" android:gravity="center_vertical|right"
+				android:textSize="14px" android:id="@+id/authUsernameLabel"
+				android:layout_width="0px" android:layout_weight="1"
+				android:layout_height="fill_parent" android:layout_marginRight="15px" />
+			<EditText android:id="@+id/authUsernameTextInput"
+				android:text="" android:layout_width="0px" android:layout_weight="1"
+				android:layout_height="fill_parent"></EditText>
+		</TableRow>
+		<TableRow android:id="@+id/authTestTableRow2"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center_horizontal">
+			<TextView android:text="@string/authPasswordLabel"
+				android:textColor="#000000" android:gravity="center_vertical|right"
+				android:textSize="14px" android:id="@+id/authPasswordLabel"
+				android:layout_width="0px" android:layout_weight="1"
+				android:layout_height="fill_parent" android:layout_marginRight="15px" />
+			<EditText android:id="@+id/authPasswordTextInput"
+				android:text="" android:layout_width="0px" android:layout_weight="1"
+				android:layout_height="fill_parent" android:inputType="textPassword">
+			</EditText>
+		</TableRow>
+		<TableRow android:id="@+id/authTestTableRow3"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="center|center_vertical|center_horizontal"
+			android:layout_gravity="right">
+			<Button android:id="@+id/authenticationTestButton"
+				android:layout_width="0px" android:layout_weight="1"
+				android:layout_height="wrap_content" android:enabled="true"
+				android:layout_margin="10px" android:gravity="center"
+				android:disabledAlpha="0.5" android:text="@string/authTestButtonText" />
+			<Button android:id="@+id/authenticationResetButton"
+				android:layout_width="0px" android:layout_weight="1"
+				android:layout_height="wrap_content" android:enabled="true"
+				android:layout_margin="10px" android:gravity="center"
+				android:disabledAlpha="0.5" android:text="@string/authResetButtonText" />
+		</TableRow>
+	</TableLayout>
+
+	<TextView android:id="@+id/authenticationTestResultsText"
+		android:layout_width="fill_parent" android:textColor="#000000"
+		android:layout_height="wrap_content" android:textSize="14px"
+		android:textStyle="bold" android:gravity="center_horizontal"
+		android:layout_weight="0" android:text="" />
+
+</LinearLayout>

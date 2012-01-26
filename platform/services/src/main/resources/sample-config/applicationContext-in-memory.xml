@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- When running in-memory, the DB schema is created automatically -->
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="cloudlbs" />
+
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.hbm2ddl.auto" value="create" />
+				<entry key="hibernate.search.default.directory_provider"
+					value="org.hibernate.search.store.RAMDirectoryProvider" />
+				<!-- NOT REQUIRE FOR IN-MEMORY -->
+				<entry key="hibernate.search.default.indexBase" value="target/index" />
+
+			</map>
+		</property>
+	</bean>
+
+	<!-- Tries to extract authentication credentials from HTTP headers -->
+	<bean class="com.cloudlbs.core.utils.security.HeaderAuthenticationFilter"
+		id="headerAuthenticationFilter">
+		<property name="ignoreFailure" value="true" />		
+	</bean>
+
+    <bean id="cacheManager"
+        class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:/sample-config/ehcache.xml" />
+    </bean>
+
+	<import resource="../spring/applicationContext-live.xml" />
+
+</beans>

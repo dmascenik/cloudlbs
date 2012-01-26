@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:gravity="center_horizontal"
+	android:padding="10px">
+
+	<ScrollView android:id="@+id/logScrollView"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_weight="1">
+		<TextView android:id="@+id/logBufferView"
+			android:layout_width="fill_parent" android:layout_height="fill_parent" />
+	</ScrollView>
+
+	<TableLayout android:id="@+id/logLevelBar"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:gravity="bottom" android:layout_weight="0">
+
+		<TableRow android:layout_width="fill_parent" android:gravity="center_horizontal"
+			android:layout_height="50px">
+
+			<Button android:id="@+id/logLevelDebug" android:layout_width="0px"
+				android:layout_height="fill_parent" android:layout_weight="1"
+				android:text="Debug" />
+
+			<Button android:id="@+id/logLevelInfo" android:layout_width="0px"
+				android:layout_height="fill_parent" android:layout_weight="1"
+				android:text="Info" />
+
+			<Button android:id="@+id/logLevelWarn" android:layout_width="0px"
+				android:layout_height="fill_parent" android:layout_weight="1"
+				android:text="Warn" />
+
+			<Button android:id="@+id/logLevelError" android:layout_width="0px"
+				android:layout_height="fill_parent" android:layout_weight="1"
+				android:text="Error" />
+
+		</TableRow>
+
+	</TableLayout>
+
+</LinearLayout>

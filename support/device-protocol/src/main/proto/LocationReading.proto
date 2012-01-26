@@ -1,0 +1,88 @@
+package device;
+
+/**
+ * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ *
+ * DEVICE LOCATION REPORTING PROTOCOL - XMPP
+ *
+ * The following message definitions are for types that will be sent to
+ * and from an SLS instance on a device via the XMPP channel.
+ *
+ * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ */
+
+option java_package = "com.cloudlbs.sls.protocol";
+option java_outer_classname = "LocationProto";
+
+message LocationReadingMessage {
+
+    required double latitude = 1;
+    required double longitude = 2;
+    
+    /**
+     * The altitude reading in meters above sea level
+     */
+    required double altitude = 3;
+    
+    /**
+     * Timestamp of the reading in millis since epoch
+     */
+    required int64 timestamp = 4;
+    
+    /**
+     * The error radius of the location reading in meters
+     */
+    required float  errorRadius = 5;
+
+    /**
+     * Time taken to get a fix of sufficient accuracy (in seconds). If the 
+     * fix timed out, this will be equal to the timeout setting
+     */
+    optional int32  fixTime = 6;
+
+    /**
+     * True if the location did not meet the maximum error radius constraint,
+     * but timed out waiting for a better reading.
+     */
+    optional bool   timedOut = 7 [default = false];
+
+    /**
+     * The GUID of the thing whose location reading this is.
+     */
+    optional string subjGuid = 8;
+    
+    /**
+     * FIXME - not sure what this should be, but the message converter needs it.
+     */
+    optional string guid = 9;
+    
+    /**
+     * A formatted name to associate with this location.
+     */
+    optional string prettyName = 10;
+
+	/**
+	 * The CloudLBS unique identifier of the app to be notified of
+	 * this incoming location (if going to the device)
+	 */
+	optional string appGuid = 11;
+
+	/**
+	 * The API key and factors used to validate the sender of this location 
+	 */
+    optional string apiKey = 12;
+	optional string appIdentifier = 13;
+	optional string certificateFingerprint = 14;
+	
+}
+
+/**
+ * Message type used to send location data from the server to the device. This could
+ * be locations for other users, and must include the AppKey of the app that should 
+ * be notified of the incoming data.
+ */
+message LocationDataMessage {
+
+    repeated LocationReadingMessage location = 1;
+
+}

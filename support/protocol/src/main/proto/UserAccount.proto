@@ -1,0 +1,34 @@
+package account;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "UserAccountProto";
+
+import "search.proto";
+
+message UserAccountMessage {
+
+    optional string guid = 1;
+    optional int64 createDate = 2;
+    optional int64 version = 3;
+    optional string email = 4;
+    optional string status = 5;
+    optional string firstName = 7;
+    optional string lastName = 8;
+    optional string password = 9;
+    repeated RoleMessage grantedAuthority = 10;
+    optional string username = 11;
+    optional string displayName = 12;
+        
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated UserAccountMessage items = 1002;
+    }    
+}
+
+message RoleMessage {
+
+	optional string guid = 1;
+	optional string name = 2;
+	
+}

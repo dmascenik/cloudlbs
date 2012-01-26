@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:gravity="center_horizontal"
+	android:background="#000000">
+
+	<ScrollView android:id="@+id/settingsScrollView"
+		android:padding="5px" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:gravity="center_horizontal"
+			android:background="#000000">
+
+			<TableRow android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:background="#222222">
+				<TextView android:layout_width="wrap_content"
+					android:textSize="8pt" android:textStyle="bold"
+					android:layout_height="wrap_content" android:text="@string/settings_conn_heading" />
+			</TableRow>
+			<TableRow android:layout_height="wrap_content"
+				android:padding="10px" android:layout_width="fill_parent"
+				android:gravity="center_vertical">
+				<TextView android:layout_width="0px" android:layout_weight="1"
+					android:layout_height="wrap_content" android:textSize="10pt"
+					android:text="@string/settings_hostname_label"></TextView>
+				<EditText android:layout_width="0px" android:layout_weight="2"
+					android:gravity="right" android:id="@+id/settingsHostname"
+					android:layout_height="wrap_content" android:enabled="false"></EditText>
+			</TableRow>
+			<TableRow android:layout_height="wrap_content"
+				android:padding="10px" android:layout_width="fill_parent"
+				android:gravity="center_vertical">
+				<TextView android:layout_width="0px" android:layout_weight="3"
+					android:text="@string/settings_port_label" android:layout_height="wrap_content"
+					android:textSize="10pt"></TextView>
+				<EditText android:layout_width="0px" android:layout_weight="1"
+					android:gravity="right" android:id="@+id/settingsPort"
+					android:layout_height="wrap_content" android:enabled="false"
+					android:inputType="number"></EditText>
+			</TableRow>
+			<TableRow android:layout_height="wrap_content"
+				android:padding="10px" android:layout_width="fill_parent"
+				android:gravity="center_vertical">
+				<TextView android:layout_width="0px" android:layout_weight="3"
+					android:text="@string/settings_usehttps_label"
+					android:layout_height="wrap_content" android:textSize="10pt"></TextView>
+				<CheckBox android:id="@+id/settingsUseHttps"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:enabled="false"></CheckBox>
+			</TableRow>
+
+			<TableRow android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:background="#222222">
+				<TextView android:layout_width="wrap_content"
+					android:textSize="8pt" android:textStyle="bold"
+					android:layout_height="wrap_content" android:text="@string/settings_debug_heading" />
+			</TableRow>
+			<TableRow android:layout_height="wrap_content"
+				android:padding="10px" android:layout_width="fill_parent"
+				android:gravity="center_vertical">
+				<TextView android:layout_width="0px" android:layout_weight="3"
+					android:layout_height="wrap_content" android:textSize="10pt"
+					android:text="@string/settings_emulatormode_label"></TextView>
+				<CheckBox android:id="@+id/settingsEmulatorMode"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:enabled="false"></CheckBox>
+			</TableRow>
+			<TableRow android:layout_height="wrap_content"
+				android:padding="10px" android:layout_width="fill_parent"
+				android:gravity="center_vertical">
+				<TextView android:layout_width="0px" android:layout_weight="3"
+					android:layout_height="wrap_content" android:textSize="10pt"
+					android:text="@string/settings_logbuffer_label"></TextView>
+				<EditText android:layout_width="0px" android:layout_weight="1"
+					android:gravity="right" android:id="@+id/settingsLogBufferSize"
+					android:layout_height="wrap_content" android:enabled="false"
+					android:inputType="number"></EditText>
+			</TableRow>
+
+			<TableRow android:layout_height="wrap_content"
+				android:layout_width="fill_parent" android:padding="10px"
+				android:gravity="center_vertical">
+				<Button android:id="@+id/settingsDefaultsButton"
+					android:layout_width="0px" android:layout_weight="1"
+					android:layout_height="wrap_content" android:text="@string/settings_defaults_button"
+					android:enabled="false"></Button>
+				<Button android:layout_width="0px" android:layout_weight="1"
+					android:layout_height="wrap_content" android:id="@+id/settingsApplyButton"
+					android:text="@string/settings_apply_button" android:enabled="false"></Button>
+			</TableRow>
+		</TableLayout>
+
+	</ScrollView>
+
+</LinearLayout>
+	

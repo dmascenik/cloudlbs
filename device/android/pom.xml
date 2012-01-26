@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.cloudlbs.device</groupId>
+		<artifactId>com.cloudlbs.device</artifactId>
+		<version>0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.cloudlbs.device.android</groupId>
+	<artifactId>com.cloudlbs.device.android</artifactId>
+	<name>com.cloudlbs.device.android</name>
+	<packaging>pom</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
+				<configuration>
+					<sdk>
+						<!-- build for the lowest API level -->
+						<platform>8</platform>
+					</sdk>
+					<emulator>
+						<!-- test on the highest API level -->
+						<avd>${android.api.8.emulator.name}</avd>
+					</emulator>
+					<deleteConflictingFiles>true</deleteConflictingFiles>
+					<undeployBeforeDeploy>true</undeployBeforeDeploy>
+					<jvmArguments>
+						<argument>-Xmx256m</argument>
+					</jvmArguments>
+				</configuration>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<!-- Sets the AndroidManifest.xml Version Name to the projects version 
+					number -->
+				<groupId>org.codehaus.groovy.maven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								project.modules.each {
+								try {
+								def manifestFile = new File("${it}/AndroidManifest.xml")
+								def ns = new
+								groovy.xml.Namespace("http://schemas.android.com/apk/res/android",
+								"ns")
+								def parser = new groovy.util.XmlParser(false, true)
+								def rootNode = parser.parse(manifestFile)
+								def attributes = rootNode.attributes()
+								attributes[ns.versionName] = "${project.version}"
+								def writer = new groovy.io.GroovyPrintWriter(manifestFile)
+								writer.println('&lt;?xml version="1.0" encoding="UTF-8"?&gt;')
+								def xmlWriter = new groovy.util.XmlNodePrinter(writer)
+								xmlWriter.setPreserveWhitespace(false)
+								xmlWriter.setNamespaceAware(true)
+								xmlWriter.print(rootNode)
+								} catch (FileNotFoundException e) {
+								println('No AndroidManifest.xml file found. Skipping version update.')
+								println('Probably not an Android project, but a library.')
+								println('Skipping version update.')
+								}
+								}
+                            </source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>sls-core</module>
+		<module>sls-app</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- Need to use the version with the Neubauer patch for Android -->
+			<dependency>
+				<groupId>jivesoftware</groupId>
+				<artifactId>smack</artifactId>
+				<version>3.0.4-neubauer</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+</project>

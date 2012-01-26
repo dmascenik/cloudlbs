@@ -1,0 +1,12 @@
+.svn
+.project
+.settings
+.classpath
+target
+webapp/.gwt/.gwt-log
+webapp/src/main/webapp/WEB-INF/classes/*
+webapp/src/main/webapp/WEB-INF/lib/*
+device/android/sls-app/bin/*
+device/android/sls-app/gen/*
+device/android/sls-core/bin/*
+device/android/sls-core/gen/*

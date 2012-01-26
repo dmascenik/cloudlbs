@@ -1,0 +1,52 @@
+package search;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "SearchProto";
+
+  message SortMessage {
+        enum Order {
+                Ascending = 1;
+                Descending = 2;
+        }
+
+  	required string field = 1;
+  	required Order order = 2; 
+  }
+  
+  message FacetMessage {
+  	enum SortMessage {
+  		None = 1;
+  		Count = 2;
+  		Lexical = 3;
+  	}
+  	required string field = 1;
+  	optional SortMessage sort = 2 [default = None];
+  	optional int32 minCount = 3 [default = 0];
+  }
+ 
+  message QueryMessage {
+    optional string id = 1;
+	optional int32 firstResult = 2 [default = 0];
+	optional int32 maxResults = 3 [default = 10];
+	optional string q = 4;
+    optional string scopeGuid = 5;
+	repeated SortMessage sort = 6;
+	
+	extensions 1000 to max;
+  }
+  
+ 
+  message SearchResultMessage {
+
+        // query time in milliseconds
+  	optional int32 queryTime = 2;
+
+        // The original query that generated these results
+  	optional QueryMessage query = 3; 
+
+        // The total number of results found, not the number of results returned.
+  	optional int32 totalResults = 4;
+
+	extensions 1000 to max;
+  }
+  

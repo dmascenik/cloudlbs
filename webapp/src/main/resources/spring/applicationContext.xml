@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"	
+    xsi:schemaLocation="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- ${name} parameters will be loaded from the file(s) on the classpath, 
+		or from system properties. -->
+	<context:property-placeholder location="classpath*:sysconfig.properties" />
+	<context:component-scan base-package="com.cloudlbs.web.server" />
+	<context:annotation-config />
+
+	<!-- Remote Services -->
+	<bean class="com.cloudlbs.core.utils.security.RestUserAccountDetailsService"
+		id="restUserAccountDetailsService" />
+	<bean class="com.cloudlbs.core.utils.system.CachingSystemPropertyRemoteService" id="systemPropertyService">
+       <property name="serviceUrl" value="${system.properties.base}" />
+       <property name="resourceStub" value="${system.properties.url}" />
+	</bean>
+
+	<!-- Export the userAccountRemote into the ServletContext for processing 
+		account confirmations -->
+	<bean
+		class="org.springframework.web.context.support.ServletContextAttributeExporter">
+		<property name="attributes">
+			<map>
+				<entry key="userAccountRemote" value-ref="userAccountRemote" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- RestTemplate -->
+	<bean class="com.cloudlbs.core.utils.remote.SecureRestTemplate"
+		id="secureRestTemplate">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean class=" com.cloudlbs.core.utils.remote.ProtobufHttpMessageConverter">
+					<constructor-arg>
+						<list>
+                            <value>#{T(com.cloudlbs.platform.protocol.AccountProto$UserAccountMessage).items}</value>
+                            <value>#{T(com.cloudlbs.platform.protocol.SystemProto$SystemPropertyMessage).items}</value>
+						</list>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"
+		id="shaPasswordEncoder" />
+
+	<security:http security="none" pattern="/confirm*" />
+
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/index.html"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/register.*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/main.css"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/register/**"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/main.*"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/main/**"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/gwt/**"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/**/*.html"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/**"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+	</security:http>
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			user-service-ref="restUserAccountDetailsService">
+			<security:password-encoder ref="shaPasswordEncoder">
+				<security:salt-source user-property="guid" />
+			</security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+    <!-- EhCache configuration -->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:/ehcache.xml" />
+    </bean>
+    <ehcache:config cache-manager="cacheManager">
+        <ehcache:evict-expired-elements
+            interval="60" />
+    </ehcache:config>
+    <ehcache:annotation-driven />
+
+    <bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+        <property name="locateExistingServerIfPossible" value="true" />
+    </bean>
+
+    <bean class="net.sf.ehcache.management.ManagementService" init-method="init">
+        <constructor-arg ref="cacheManager" />
+        <constructor-arg ref="mbeanServer" />
+        <constructor-arg value="true" />
+        <constructor-arg value="true" />
+        <constructor-arg value="true" />
+        <constructor-arg value="true" />
+        <constructor-arg value="true" />
+    </bean>
+
+    <!-- Application initializers -->
+    <bean class="com.cloudlbs.core.utils.ApplicationInitializer">
+        <constructor-arg>
+            <list>
+                <bean class="com.cloudlbs.web.server.remote.RemoteServiceInitializer" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

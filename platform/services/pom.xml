@@ -1,0 +1,285 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.cloudlbs.platform</groupId>
+		<artifactId>com.cloudlbs.platform</artifactId>
+		<version>0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>services</artifactId>
+	<packaging>war</packaging>
+	<name>CloudLBS Services</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.cloudlbs.support</groupId>
+			<artifactId>device-protocol</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.cloudlbs.support</groupId>
+			<artifactId>protocol</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.cloudlbs.support</groupId>
+			<artifactId>utils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java-format</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>jivesoftware</groupId>
+			<artifactId>smackx</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.ehcache-spring-annotations</groupId>
+			<artifactId>ehcache-spring-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-terracotta</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jmock</groupId>
+			<artifactId>jmock-junit4</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit-dep</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.objenesis</groupId>
+			<artifactId>objenesis</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<!-- Deploy to DEV will happen if DEV accepts this version number for 
+						autodeployment. This task deploys to two separate clustered nodes. -->
+					<execution>
+						<id>dev-deploy-war</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks unless="disable.tomcat.deploy">
+								<exec executable="tomcat-deploy.sh">
+									<arg value="com/cloudlbs/platform" />
+									<arg value="${project.artifactId}" />
+									<arg value="${project.version}" />
+									<arg value="${project.packaging}" />
+									<arg value="devuse01.cloud-lbs.com" />
+									<arg value="cloudlbs-services" />
+									<arg value="svc" />
+								</exec>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Generate the PostgreSQL DDL for live system deployment using "mvn 
+				hibernate3:hbm2ddl" Do not use the output of this task as-is if deploying 
+				to a pre-existing system! -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<configuration>
+					<components>
+						<component>
+							<name>hbm2ddl</name>
+							<implementation>jpaconfiguration</implementation>
+						</component>
+					</components>
+					<componentProperties>
+						<persistenceunit>cloudlbs</persistenceunit>
+						<outputfilename>schema.ddl</outputfilename>
+						<drop>false</drop>
+						<create>true</create>
+						<export>false</export>
+						<format>true</format>
+						<jdk5>true</jdk5>
+					</componentProperties>
+				</configuration>
+			</plugin>
+
+			<!-- Configuration for running this WAR in an embedded Tomcat instance 
+				using "mvn tomcat:run" Tomcat starts up and uses an embedded H2 database. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<contextFile>src/test/tomcat/context.xml</contextFile>
+					<path>/svc</path>
+					<port>8080</port>
+					<systemProperties>
+						<log4j.configuration>sample-config/tomcat-run-log4j.xml</log4j.configuration>
+					</systemProperties>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.h2database</groupId>
+						<artifactId>h2</artifactId>
+						<version>1.2.141</version>
+					</dependency>
+					<dependency>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+						<version>1.2.16</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>noDatabase</id>
+			<build>
+				<plugins>
+					<!-- Alternate configuration for running an instance that has no database 
+						access, and must do everything via the REST API -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>tomcat-maven-plugin</artifactId>
+						<configuration>
+							<!-- <contextFile>src/test/tomcat/context-noDatabase.xml</contextFile> -->
+							<contextFile>src/test/tomcat/context.xml</contextFile>
+							<path>/svc</path>
+							<port>8090</port>
+							<systemProperties>
+								<log4j.configuration>sample-config/tomcat-run-log4j.xml</log4j.configuration>
+								<syspropUrl>http://localhost:8080/svc</syspropUrl>
+								<syspropStub>/internal/sysprop</syspropStub>
+								<noDatabase>true</noDatabase>
+							</systemProperties>
+						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>log4j</groupId>
+								<artifactId>log4j</artifactId>
+								<version>1.2.16</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<properties>
+		<disable.artifact.deployment>true</disable.artifact.deployment>
+	</properties>
+
+</project>

@@ -1,0 +1,57 @@
+package control;
+
+/**
+ * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ *
+ * DEVICE CONTROL PROTOCOL - HTTP
+ *
+ * The following message definitions are for types that will be used by 
+ * the device over its HTTP channel.
+ *
+ * -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ */
+
+option java_package = "com.cloudlbs.sls.protocol";
+option java_outer_classname = "DeviceConnectionProto";
+
+/**
+ * This message is used when the device needs to (re)establish its connection
+ * with the XMPP server. It contains unique identifying information for the 
+ * device (which will never change), and the XMPP connection info (which may
+ * be different each time the SLS starts up, or even change without notice
+ * while the SLS is still running).
+ */
+message DeviceConnectionMessage {
+
+    optional string deviceUniqueId = 1;
+    
+    /**
+     * The XMPP host to use for communications with the server.
+     */
+    optional string xmppHost = 3;
+
+    /**
+     * The XMPP port to use for communications with the server.
+     */
+    optional int32 xmppPort = 4;
+
+    /**
+     * The XMPP username to use when logging into the server. This may change
+     * from time to time.
+     */
+    optional string xmppUsername = 5;
+
+    /**
+     * The XMPP password to use when logging into the server. This may change
+     * from time to time.
+     */
+    optional string xmppPassword = 6;
+    
+    /**
+     * The fully qualified XMPP username of the processor to communicate with
+     * when interacting with the server. This is effectively the name of a 
+     * user (chat buddy) on the device's chat roster (buddy list).
+     */
+    optional string processorName = 7;
+
+}

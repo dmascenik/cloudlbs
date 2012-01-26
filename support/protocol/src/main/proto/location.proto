@@ -1,0 +1,29 @@
+package location;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "LocationProto";
+
+import "search.proto";
+import "scope.proto";
+
+message FixedLocationMessage {
+
+    optional string guid = 1;
+    optional string label = 2;
+    
+    optional double latitude = 3;
+    optional double longitude = 4;
+    optional double altitude = 5;
+    
+    optional int64 createDate = 6;
+    
+    optional scope.ScopeMessage scope = 7;
+    
+    optional int64 version = 8;
+    
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated FixedLocationMessage items = 1005;
+    }    
+}

@@ -1,0 +1,22 @@
+package scope;
+
+option java_package = "com.cloudlbs.platform.protocol";
+option java_outer_classname = "ScopeProto";
+
+import "search.proto";
+
+message ScopeMessage {
+
+    optional string guid = 1;
+    optional ScopeMessage parent = 2;
+    optional string label = 3;
+    optional int64 createDate = 4;
+
+    optional int64 version = 5;
+    
+    extensions 1000 to max;
+    
+    extend search.SearchResultMessage {
+        repeated ScopeMessage items = 1006;
+    }    
+}

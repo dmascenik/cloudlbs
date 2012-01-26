@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean class="com.cloudlbs.core.utils.security.RestSessionAuthenticationProvider"
+		id="sessionAuthenticationProvider" />
+	<bean
+		class="com.cloudlbs.core.utils.security.RestSignatureAuthenticationProvider"
+		id="signatureAuthenticationProvider" />
+
+	<!-- Remote Service -->
+    <bean class="com.cloudlbs.core.utils.test.FixedLocationRemoteService"
+        id="fixedLocationRemoteService">
+        <constructor-arg value="http://localhost:9020/locations" />
+        <constructor-arg value="/floc" />
+    </bean>
+    <bean class="com.cloudlbs.core.utils.test.NonConvertingFixedLocationRemoteService"
+        id="nonConvertingFixedLocationRemoteService">
+        <constructor-arg value="http://localhost:9020/locations" />
+        <constructor-arg value="/floc" />
+    </bean>
+    <bean
+		class="com.cloudlbs.core.utils.security.SessionAuthenticationRemoteService"
+		id="sessionAuthenticationService">
+		<constructor-arg value="http://localhost:9010/accounts" />
+		<constructor-arg value="/internal/auth" />
+	</bean>
+	<bean
+		class="com.cloudlbs.core.utils.security.SignatureAuthenticationRemoteService"
+		id="signatureAuthenticationService">
+		<constructor-arg value="http://localhost:9010/accounts" />
+		<constructor-arg value="/internal/sig" />
+	</bean>
+
+	<!-- RestTemplate -->
+	<bean class="com.cloudlbs.core.utils.remote.SecureRestTemplate" id="secureRestTemplate">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean
+					class=" com.cloudlbs.core.utils.remote.ProtobufHttpMessageConverter">
+					<constructor-arg>
+						<list>
+							<value>#{T(com.cloudlbs.platform.protocol.LocationProto$FixedLocationMessage).items}</value>
+						</list>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>

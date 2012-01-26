@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- In a standard deployment, the DB schema is NOT created automatically -->
+    <bean
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        id="entityManagerFactory">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="cloudlbs" />
+
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="hibernate.hbm2ddl.auto" value="none" />
+            </map>
+        </property>
+    </bean>
+
+	<!-- Tries to extract authentication credentials from HTTP headers -->
+	<bean class="com.cloudlbs.core.utils.security.HeaderAuthenticationFilter"
+		id="headerAuthenticationFilter">
+		<property name="ignoreFailure" value="false" />		
+	</bean>
+
+    <bean id="cacheManager"
+        class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:/ehcache-terracotta.xml" />
+    </bean>
+
+    <import resource="applicationContext-live.xml" />
+
+</beans>

@@ -477,6 +477,16 @@
 
 	<repositories>
 		<repository>
+			<id>protobuf-java-format</id>
+			<url>http://protobuf-java-format.googlecode.com/svn/trunk/repo/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
 			<id>gwtrepo</id>
 			<url>http://gwtrepo.googlecode.com/svn/!svn/bc/33/repo/</url>
 			<snapshots>
@@ -503,6 +513,8 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
+		
+		
 		<!-- <repository> <id>repo.cloudlbs.com</id> <url>http://repo.cloud-lbs.com/repo</url> 
 			<snapshots> <enabled>true</enabled> </snapshots> <releases> <enabled>true</enabled> 
 			</releases> </repository> -->

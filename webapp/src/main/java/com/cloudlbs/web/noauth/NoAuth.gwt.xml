@@ -1,0 +1,9 @@
+<module rename-to="noauth">
+  <inherits name='com.google.gwt.user.User' />
+  <inherits name="com.google.gwt.user.theme.standard.Standard"/>
+
+  <entry-point class='com.cloudlbs.web.noauth.client.NoAuthEntryPoint' />
+
+  <source path="client"/>
+  <source path="shared"/>
+</module>

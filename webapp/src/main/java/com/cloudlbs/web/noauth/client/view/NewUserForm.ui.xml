@@ -24,6 +24,14 @@
 		</g:row>
 		<g:row>
 			<g:customCell>
+				<g:Label text="Email" horizontalAlignment="ALIGN_RIGHT" />
+			</g:customCell>
+			<g:customCell>
+				<g:TextBox ui:field="email" maxLength="30" />
+			</g:customCell>
+		</g:row>
+		<g:row>
+			<g:customCell>
 				<g:Label text="Password" horizontalAlignment="ALIGN_RIGHT" />
 			</g:customCell>
 			<g:customCell>
@@ -31,15 +39,21 @@
 			</g:customCell>
 		</g:row>
 		<g:row>
-			<g:cell />
 			<g:customCell>
-				<g:Button width="99px" ui:field="signIn">Sign In</g:Button>
+				<g:Label text="Confirm" horizontalAlignment="ALIGN_RIGHT" />
+			</g:customCell>
+			<g:customCell>
+				<g:PasswordTextBox ui:field="passwordConf"
+					maxLength="30" />
 			</g:customCell>
 		</g:row>
 		<g:row>
 			<g:cell />
 			<g:customCell>
-				<g:Hyperlink text="New User" ui:field="newUser" />
+				<g:HTMLPanel>
+					<g:Button width="99px" ui:field="createUser">Submit</g:Button>
+					<g:Button width="99px" ui:field="cancel">Cancel</g:Button>
+				</g:HTMLPanel>
 			</g:customCell>
 		</g:row>
 	</g:Grid>

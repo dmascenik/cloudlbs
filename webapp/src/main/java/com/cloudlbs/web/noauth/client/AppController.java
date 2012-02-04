@@ -1,13 +1,20 @@
 package com.cloudlbs.web.noauth.client;
 
 import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.noauth.client.event.CancelCreateUserEvent;
+import com.cloudlbs.web.noauth.client.event.CancelCreateUserEventHandler;
+import com.cloudlbs.web.noauth.client.event.CreateUserEvent;
+import com.cloudlbs.web.noauth.client.event.CreateUserEventHandler;
 import com.cloudlbs.web.noauth.client.event.LoginSubmitEvent;
 import com.cloudlbs.web.noauth.client.event.LoginSubmitEventHandler;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEventHandler;
 import com.cloudlbs.web.noauth.client.presenter.LoginFormPresenter;
+import com.cloudlbs.web.noauth.client.presenter.NewUserFormPresenter;
 import com.cloudlbs.web.noauth.client.view.LoginFormImpl;
+import com.cloudlbs.web.noauth.client.view.NewUserFormImpl;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
+import com.cloudlbs.web.noauth.shared.model.NewUserDetails;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
@@ -22,6 +29,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 	private final HandlerManager eventBus;
 	private HasWidgets container;
 	private LoginFormImpl<LoginCredentials> loginFormView;
+	private NewUserFormImpl<NewUserDetails> newUserView;
 
 	public AppController(HandlerManager eventBus) {
 		this.eventBus = eventBus;
@@ -49,6 +57,23 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 					}
 				});
 
+		eventBus.addHandler(CancelCreateUserEvent.TYPE,
+				new CancelCreateUserEventHandler() {
+
+					@Override
+					public void onCancelCreateUser(CancelCreateUserEvent event) {
+						doCancelCreateUser();
+					}
+				});
+
+		eventBus.addHandler(CreateUserEvent.TYPE, new CreateUserEventHandler() {
+
+			@Override
+			public void onCreateUser(CreateUserEvent event) {
+				doCreateUser(event.getUserDetails());
+			}
+		});
+
 	}
 
 	private void doLoginSubmit(LoginCredentials credentials) {
@@ -56,8 +81,17 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		System.out.println("Logging in " + credentials.getUsername());
 	}
 
+	private void doCreateUser(NewUserDetails newUserDetails) {
+		// TODO
+		System.out.println("Creating user  " + newUserDetails.getUsername());
+	}
+
 	private void doNewUserRequest() {
 		History.newItem(HISTORY_NEW_USER);
+	}
+
+	private void doCancelCreateUser() {
+		History.newItem(HISTORY_LOGIN);
 	}
 
 	@Override
@@ -71,14 +105,11 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
 				}
 				new LoginFormPresenter(eventBus, loginFormView).go(container);
-				// } else if (token.equals("add") || token.equals("edit")) {
-				// if (editContactView == null) {
-				// editContactView = new EditContactView();
-				//
-				// }
-				// new EditContactPresenter(rpcService, eventBus,
-				// editContactView)
-				// .go(container);
+			} else if (token.equals(HISTORY_NEW_USER)) {
+				if (newUserView == null) {
+					newUserView = new NewUserFormImpl<NewUserDetails>();
+				}
+				new NewUserFormPresenter(eventBus, newUserView).go(container);
 			}
 		}
 	}

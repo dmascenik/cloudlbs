@@ -5,8 +5,11 @@
 target
 webapp.bak/.gwt
 webapp/.gwt/.gwt-log
+webapp/src/main/gwt-unitCache
 webapp/src/main/webapp/WEB-INF/classes/*
 webapp/src/main/webapp/WEB-INF/lib/*
+webapp/src/main/webapp/WEB-INF/deploy
+webapp/src/main/webapp/noauth
 device/android/sls-app/bin/*
 device/android/sls-app/gen/*
 device/android/sls-core/bin/*

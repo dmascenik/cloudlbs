@@ -7,6 +7,7 @@ import com.cloudlbs.web.noauth.client.view.LoginForm;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.inject.Inject;
 
 public class LoginFormPresenter implements Presenter,
 		LoginForm.Presenter<LoginCredentials> {
@@ -14,6 +15,7 @@ public class LoginFormPresenter implements Presenter,
 	private final HandlerManager eventBus;
 	private final LoginForm<LoginCredentials> view;
 
+	@Inject
 	public LoginFormPresenter(HandlerManager eventBus,
 			LoginForm<LoginCredentials> view) {
 		this.eventBus = eventBus;

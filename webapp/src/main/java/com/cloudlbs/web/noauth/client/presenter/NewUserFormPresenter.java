@@ -7,6 +7,7 @@ import com.cloudlbs.web.noauth.client.view.NewUserForm;
 import com.cloudlbs.web.noauth.shared.model.NewUserDetails;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.inject.Inject;
 
 public class NewUserFormPresenter implements Presenter,
 		NewUserForm.Presenter<NewUserDetails> {
@@ -14,6 +15,7 @@ public class NewUserFormPresenter implements Presenter,
 	private final HandlerManager eventBus;
 	private final NewUserForm<NewUserDetails> view;
 
+	@Inject
 	public NewUserFormPresenter(HandlerManager eventBus,
 			NewUserForm<NewUserDetails> view) {
 		this.eventBus = eventBus;

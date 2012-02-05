@@ -26,20 +26,12 @@ public class LoginFormImpl<T> extends Composite implements LoginForm<T> {
 	}
 
 	private static Binder uiBinder = GWT.create(Binder.class);
-
-	@UiField
-	TextBox username;
-
-	@UiField
-	PasswordTextBox password;
-
-	@UiField
-	Button signIn;
-
-	@UiField
-	Label errorLabel;
-
 	private Presenter<T> presenter;
+
+	@UiField TextBox username;
+	@UiField PasswordTextBox password;
+	@UiField Button signIn;
+	@UiField Label errorLabel;
 
 	public LoginFormImpl() {
 		initWidget(uiBinder.createAndBindUi(this));

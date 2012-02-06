@@ -1,21 +1,31 @@
 package com.cloudlbs.web.noauth.shared.model;
 
-public class LoginCredentials {
+import java.io.Serializable;
 
-	private String username;
-	private String password;
+public class LoginCredentials implements Serializable {
 
-	public LoginCredentials(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public String getUsername() {
-		return username;
-	}
+    private String username;
+    private String password;
 
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * Required for GWT serialization
+     */
+    public LoginCredentials() {
+    }
+
+    public LoginCredentials(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
 }

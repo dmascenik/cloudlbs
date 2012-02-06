@@ -14,28 +14,29 @@ import com.google.inject.TypeLiteral;
 
 public class NoAuthGinModule extends AbstractGinModule {
 
-	@Override
-	protected void configure() {
-		bindViews();
-	}
+    @Override
+    protected void configure() {
+        bindViews();
+    }
 
-	@Provides
-	@Singleton
-	HandlerManager getEventBus() {
-		return new HandlerManager(null);
-	}
+    @Provides
+    @Singleton
+    HandlerManager getEventBus() {
+        return new HandlerManager(null);
+    }
 
-	/**
-	 * Views use generics, so their bindings require TypeLiteral and can become
-	 * rather verbose.
-	 */
-	private void bindViews() {
-		bind(new TypeLiteral<LoginForm<LoginCredentials>>() {
-		}).to(new TypeLiteral<LoginFormImpl<LoginCredentials>>() {
-		}).in(Singleton.class);
+    /**
+     * Views use generics, so their bindings require TypeLiteral and can become
+     * rather verbose.
+     */
+    private void bindViews() {
+        bind(new TypeLiteral<LoginForm<LoginCredentials>>() {
+        }).to(new TypeLiteral<LoginFormImpl<LoginCredentials>>() {
+        }).in(Singleton.class);
 
-		bind(new TypeLiteral<NewUserForm<NewUserDetails>>() {
-		}).to(new TypeLiteral<NewUserFormImpl<NewUserDetails>>() {
-		}).in(Singleton.class);
-	}
+        bind(new TypeLiteral<NewUserForm<NewUserDetails>>() {
+        }).to(new TypeLiteral<NewUserFormImpl<NewUserDetails>>() {
+        }).in(Singleton.class);
+    }
+
 }

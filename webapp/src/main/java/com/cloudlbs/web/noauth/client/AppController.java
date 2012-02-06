@@ -62,13 +62,14 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      * in one place.
      */
     @Inject
-    public AppController(HandlerManager eventBus, LoginSubmitCommand loginSubmitCommand) {
+    public AppController(HandlerManager eventBus, LoginSubmitCommand loginSubmitCommand, NewUserCommand newUserCommand,
+            CancelNewUserCommand cancelNewUserCommand, CreateUserCommand createUserCommand) {
         this.eBus = eventBus;
         History.addValueChangeHandler(this);
         eBus.addHandler(LoginSubmitEvent.TYPE, loginSubmitCommand);
-        eBus.addHandler(NewUserRequestEvent.TYPE, new NewUserCommand());
-        eBus.addHandler(CancelCreateUserEvent.TYPE, new CancelNewUserCommand());
-        eBus.addHandler(CreateUserEvent.TYPE, new CreateUserCommand());
+        eBus.addHandler(NewUserRequestEvent.TYPE, newUserCommand);
+        eBus.addHandler(CancelCreateUserEvent.TYPE, cancelNewUserCommand);
+        eBus.addHandler(CreateUserEvent.TYPE, createUserCommand);
     }
 
     /**

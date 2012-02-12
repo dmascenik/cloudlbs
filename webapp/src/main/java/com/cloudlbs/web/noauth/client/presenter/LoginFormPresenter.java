@@ -4,6 +4,7 @@ import com.cloudlbs.web.core.gwt.Presenter;
 import com.cloudlbs.web.noauth.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.view.LoginForm;
+import com.cloudlbs.web.noauth.shared.exception.EvilException;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
@@ -52,6 +53,8 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
                     } else {
                         Window.alert("Aww nuts... This is embarrassing. Please try again in a moment.");
                     }
+                } catch (EvilException e) {
+                    view.showErrorMessage(e.getMessage());
                 } catch (Throwable e) {
                     Window.alert(e.getMessage());
                 }

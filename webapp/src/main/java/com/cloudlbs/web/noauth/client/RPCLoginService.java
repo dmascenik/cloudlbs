@@ -8,5 +8,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface RPCLoginService extends RemoteService {
 
     boolean login(LoginCredentials credentials);
-    
+
 }

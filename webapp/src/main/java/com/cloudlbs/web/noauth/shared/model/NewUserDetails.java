@@ -1,27 +1,31 @@
 package com.cloudlbs.web.noauth.shared.model;
 
-public class NewUserDetails {
+import java.io.Serializable;
 
-	private String username;
-	private String email;
-	private String password;
+public class NewUserDetails implements Serializable {
 
-	public NewUserDetails(String username, String email, String password) {
-		this.username = username;
-		this.email = email;
-		this.password = password;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public String getUsername() {
-		return username;
-	}
+    private String username;
+    private String email;
+    private String password;
 
-	public String getEmail() {
-		return email;
-	}
+    public NewUserDetails(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
 }

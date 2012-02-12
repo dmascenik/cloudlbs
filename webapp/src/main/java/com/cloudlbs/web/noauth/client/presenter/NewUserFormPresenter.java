@@ -2,7 +2,6 @@ package com.cloudlbs.web.noauth.client.presenter;
 
 import com.cloudlbs.web.core.gwt.Presenter;
 import com.cloudlbs.web.noauth.client.event.CancelCreateUserEvent;
-import com.cloudlbs.web.noauth.client.event.CreateUserEvent;
 import com.cloudlbs.web.noauth.client.view.NewUserForm;
 import com.cloudlbs.web.noauth.shared.model.NewUserDetails;
 import com.google.gwt.event.shared.HandlerManager;
@@ -25,7 +24,25 @@ public class NewUserFormPresenter implements Presenter,
 
 	@Override
 	public void onSubmitClicked() {
-		eventBus.fireEvent(new CreateUserEvent(view.getNewUserDetails()));
+        NewUserDetails userDetails = view.getNewUserDetails();
+        System.out.println("Creating " + userDetails.getUsername());
+
+//        loginService.login(creds, new AsyncCallback<Boolean>() {
+//
+//            @Override
+//            public void onSuccess(Boolean result) {
+//                System.out.println("Login " + (result ? "success" : "failed"));
+//                if (!result) {
+//                    view.showErrorMessage("Username or password is incorrect");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable caught) {
+//                caught.printStackTrace();
+//                view.showErrorMessage(caught.getMessage());
+//            }
+//        });
 	}
 
 	@Override

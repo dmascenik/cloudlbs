@@ -6,7 +6,9 @@ import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.view.LoginForm;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.StatusCodeException;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
@@ -42,8 +44,17 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
 
             @Override
             public void onFailure(Throwable caught) {
-                caught.printStackTrace();
-                view.showErrorMessage(caught.getMessage());
+                try {
+                    throw caught;
+                } catch (StatusCodeException e) {
+                    if (e.getStatusCode() == 0) {
+                        Window.alert("We've lost contact with the mothership!");
+                    } else {
+                        Window.alert("Aww nuts... This is embarrassing. Please try again in a moment.");
+                    }
+                } catch (Throwable e) {
+                    Window.alert(e.getMessage());
+                }
             }
         });
     }

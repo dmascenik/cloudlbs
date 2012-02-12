@@ -2,10 +2,8 @@ package com.cloudlbs.web.noauth.client;
 
 import com.cloudlbs.web.core.gwt.Presenter;
 import com.cloudlbs.web.noauth.client.command.CancelNewUserCommand;
-import com.cloudlbs.web.noauth.client.command.CreateUserCommand;
 import com.cloudlbs.web.noauth.client.command.NewUserCommand;
 import com.cloudlbs.web.noauth.client.event.CancelCreateUserEvent;
-import com.cloudlbs.web.noauth.client.event.CreateUserEvent;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.presenter.LoginFormPresenter;
 import com.cloudlbs.web.noauth.client.presenter.NewUserFormPresenter;
@@ -61,12 +59,11 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      */
     @Inject
     public AppController(HandlerManager eventBus, NewUserCommand newUserCommand,
-            CancelNewUserCommand cancelNewUserCommand, CreateUserCommand createUserCommand) {
+            CancelNewUserCommand cancelNewUserCommand) {
         this.eBus = eventBus;
         History.addValueChangeHandler(this);
         eBus.addHandler(NewUserRequestEvent.TYPE, newUserCommand);
         eBus.addHandler(CancelCreateUserEvent.TYPE, cancelNewUserCommand);
-        eBus.addHandler(CreateUserEvent.TYPE, createUserCommand);
     }
 
     /**

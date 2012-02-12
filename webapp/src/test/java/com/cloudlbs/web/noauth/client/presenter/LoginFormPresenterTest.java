@@ -1,13 +1,16 @@
 package com.cloudlbs.web.noauth.client.presenter;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -17,6 +20,7 @@ import com.cloudlbs.web.noauth.client.event.NewUserRequestEventHandler;
 import com.cloudlbs.web.noauth.client.view.LoginForm;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class LoginFormPresenterTest implements NewUserRequestEventHandler {
 
@@ -29,11 +33,18 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
     public void testSignInClicked() {
         LoginCredentials creds = new LoginCredentials("user", "password");
         when(view.getLoginCredentials()).thenReturn(creds);
-//        eventBus.addHandler(LoginSubmitEvent.TYPE, this);
-        returned = null;
+        ArgumentCaptor<LoginCredentials> argCreds = ArgumentCaptor.forClass(LoginCredentials.class);
+
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<AsyncCallback<Boolean>> argCallback = (ArgumentCaptor<AsyncCallback<Boolean>>) (Object) ArgumentCaptor
+                .forClass(AsyncCallback.class);
+
         presenter.onSignInClicked();
-        assertNotNull(returned);
-        assertEquals(creds, returned);
+        verify(loginService).login(argCreds.capture(), argCallback.capture());
+
+        assertEquals(creds, argCreds.getValue());
+        
+        argCallback.getValue().onSuccess(true);
     }
 
     @Test
@@ -58,7 +69,6 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
         eventBus = null;
     }
 
-    private LoginCredentials returned;
     private boolean newUserRequestReceived;
 
     @Override

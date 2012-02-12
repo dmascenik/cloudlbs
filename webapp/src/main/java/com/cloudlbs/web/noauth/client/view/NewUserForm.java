@@ -5,11 +5,17 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface NewUserForm<T> {
 
+    /*
+     * Things the view can ask the presenter to do
+     */
     public interface Presenter<T> {
         void onSubmitClicked();
         void onCancelClicked();
     }
 
+    /*
+     * Things the presenter can ask the view to do
+     */
     void setPresenter(Presenter<T> presenter);
     NewUserDetails getNewUserDetails();
     Widget asWidget();

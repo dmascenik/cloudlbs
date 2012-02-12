@@ -1,42 +1,63 @@
 package com.cloudlbs.web.noauth.client.presenter;
 
 import com.cloudlbs.web.core.gwt.Presenter;
-import com.cloudlbs.web.noauth.client.event.LoginSubmitEvent;
+import com.cloudlbs.web.noauth.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.view.LoginForm;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
-public class LoginFormPresenter implements Presenter,
-		LoginForm.Presenter<LoginCredentials> {
+public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginCredentials> {
 
-	private final HandlerManager eventBus;
-	private final LoginForm<LoginCredentials> view;
+    private final RPCLoginServiceAsync loginService;
+    private final HandlerManager eventBus;
+    private final LoginForm<LoginCredentials> view;
 
-	@Inject
-	public LoginFormPresenter(HandlerManager eventBus,
-			LoginForm<LoginCredentials> view) {
-		this.eventBus = eventBus;
-		this.view = view;
-		this.view.setPresenter(this);
-	}
+    @Inject
+    public LoginFormPresenter(HandlerManager eventBus, LoginForm<LoginCredentials> view,
+            RPCLoginServiceAsync loginService) {
+        this.eventBus = eventBus;
+        this.view = view;
+        this.view.setPresenter(this);
+        this.loginService = loginService;
+    }
 
-	@Override
-	public void onSignInClicked() {
-		eventBus.fireEvent(new LoginSubmitEvent(view.getLoginCredentials()));
-	}
+    @Override
+    public void onSignInClicked() {
+        LoginCredentials creds = view.getLoginCredentials();
+        System.out.println("Logging in " + creds.getUsername());
 
-	@Override
-	public void onNewUserClicked() {
-		eventBus.fireEvent(new NewUserRequestEvent());
-	}
+        loginService.login(creds, new AsyncCallback<Boolean>() {
 
-	@Override
-	public void go(HasWidgets container) {
-		container.clear();
-		container.add(view.asWidget());
-	}
+            @Override
+            public void onSuccess(Boolean result) {
+                System.out.println("Login " + (result ? "success" : "failed"));
+                if (!result) {
+                    view.showErrorMessage("Username or password is incorrect");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable caught) {
+                caught.printStackTrace();
+                view.showErrorMessage(caught.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onNewUserClicked() {
+        eventBus.fireEvent(new NewUserRequestEvent());
+    }
+
+    @Override
+    public void go(HasWidgets container) {
+        view.clearForm();
+        container.clear();
+        container.add(view.asWidget());
+    }
 
 }

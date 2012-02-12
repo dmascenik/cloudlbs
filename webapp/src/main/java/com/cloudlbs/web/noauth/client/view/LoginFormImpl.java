@@ -39,12 +39,28 @@ public class LoginFormImpl<T> extends Composite implements LoginForm<T> {
 
     @UiHandler("signIn")
     void onSignInClicked(ClickEvent event) {
+        errorLabel.setVisible(false);
         presenter.onSignInClicked();
     }
 
     @UiHandler("newUser")
     void onNewUserClicked(ClickEvent event) {
+        errorLabel.setVisible(false);
         presenter.onNewUserClicked();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        errorLabel.setText(message);
+        errorLabel.setVisible(true);
+    }
+
+    @Override
+    public void clearForm() {
+        errorLabel.setVisible(false);
+        errorLabel.setText("");
+        username.setValue("");
+        password.setValue("");
     }
 
     @Override

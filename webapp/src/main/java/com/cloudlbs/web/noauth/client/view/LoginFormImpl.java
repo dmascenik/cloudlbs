@@ -21,52 +21,47 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class LoginFormImpl<T> extends Composite implements LoginForm<T> {
 
-	@UiTemplate("LoginForm.ui.xml")
-	interface Binder extends UiBinder<Widget, LoginFormImpl<?>> {
-	}
+    @UiTemplate("LoginForm.ui.xml")
+    interface Binder extends UiBinder<Widget, LoginFormImpl<?>> {
+    }
 
-	private static Binder uiBinder = GWT.create(Binder.class);
-	private Presenter<T> presenter;
+    private static Binder uiBinder = GWT.create(Binder.class);
+    private Presenter<T> presenter;
 
-	@UiField TextBox username;
-	@UiField PasswordTextBox password;
-	@UiField Button signIn;
-	@UiField Label errorLabel;
+    @UiField TextBox username;
+    @UiField PasswordTextBox password;
+    @UiField Button signIn;
+    @UiField Label errorLabel;
 
-	public LoginFormImpl() {
-		initWidget(uiBinder.createAndBindUi(this));
-		errorLabel.setVisible(false);
-	}
+    public LoginFormImpl() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	@UiHandler("signIn")
-	void onSignInClicked(ClickEvent event) {
-		if (presenter != null) {
-			presenter.onSignInClicked();
-		}
-	}
+    @UiHandler("signIn")
+    void onSignInClicked(ClickEvent event) {
+        presenter.onSignInClicked();
+    }
 
-	@UiHandler("newUser")
-	void onNewUserClicked(ClickEvent event) {
-		if (presenter != null) {
-			presenter.onNewUserClicked();
-		}
-	}
+    @UiHandler("newUser")
+    void onNewUserClicked(ClickEvent event) {
+        presenter.onNewUserClicked();
+    }
 
-	@Override
-	public LoginCredentials getLoginCredentials() {
-		String user = username.getValue();
-		String passwd = password.getValue();
-		return new LoginCredentials(user, passwd);
-	}
+    @Override
+    public LoginCredentials getLoginCredentials() {
+        String user = username.getValue();
+        String passwd = password.getValue();
+        return new LoginCredentials(user, passwd);
+    }
 
-	@Override
-	public void setPresenter(Presenter<T> presenter) {
-		this.presenter = presenter;
-	}
+    @Override
+    public void setPresenter(Presenter<T> presenter) {
+        this.presenter = presenter;
+    }
 
-	@Override
-	public Widget asWidget() {
-		return this;
-	}
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
 
 }

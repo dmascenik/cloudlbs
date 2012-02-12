@@ -13,6 +13,10 @@
 	<name>CloudLBS Webapp</name>
 	<packaging>war</packaging>
 
+    <properties>
+        <gwt.test.mode>htmlunit</gwt.test.mode>
+    </properties>
+
 	<dependencies>
 
 		<dependency>
@@ -29,6 +33,12 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -63,19 +73,20 @@
 				<!-- JS is only needed in the package phase, this speeds up testing -->
 				<executions>
 					<execution>
-                        <id>gwt-compile</id>
-                        <phase>prepare-package</phase>
+						<id>gwt-compile</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>compile</goal>
+							<goal>test</goal>
 						</goals>
 					</execution>
-                    <execution>
-                        <id>generateAsync</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generateAsync</goal>
-                        </goals>
-                    </execution>
+					<execution>
+						<id>generateAsync</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generateAsync</goal>
+						</goals>
+					</execution>
 				</executions>
 
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
@@ -88,29 +99,30 @@
 					<module>com.cloudlbs.web.noauth.NoAuth</module>
 					<logLevel>INFO</logLevel>
 					<copyWebapp>true</copyWebapp>
+					<htmlunit>FF3</htmlunit>
 				</configuration>
 			</plugin>
 
-            <!-- Google Plugin for Eclipse (GPE) won't see the source generated above 
-                by generateAsync unless it is exposed as an additional source dir -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${project.build.directory}/generated-sources/gwt</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- Google Plugin for Eclipse (GPE) won't see the source generated above 
+				by generateAsync unless it is exposed as an additional source dir -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/gwt</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 			<!-- Copy static web files before executing gwt:run -->
 			<plugin>

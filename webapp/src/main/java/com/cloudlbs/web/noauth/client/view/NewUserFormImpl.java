@@ -21,67 +21,52 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class NewUserFormImpl<T> extends Composite implements NewUserForm<T> {
 
-	@UiTemplate("NewUserForm.ui.xml")
-	interface Binder extends UiBinder<Widget, NewUserFormImpl<?>> {
-	}
+    @UiTemplate("NewUserForm.ui.xml")
+    interface Binder extends UiBinder<Widget, NewUserFormImpl<?>> {
+    }
 
-	private static Binder uiBinder = GWT.create(Binder.class);
+    private static Binder uiBinder = GWT.create(Binder.class);
 
-	@UiField
-	TextBox username;
+    @UiField TextBox username;
+    @UiField TextBox email;
+    @UiField PasswordTextBox password;
+    @UiField PasswordTextBox passwordConf;
+    @UiField Button createUser;
+    @UiField Label errorLabel;
 
-	@UiField
-	TextBox email;
+    private Presenter<T> presenter;
 
-	@UiField
-	PasswordTextBox password;
+    public NewUserFormImpl() {
+        initWidget(uiBinder.createAndBindUi(this));
+        errorLabel.setVisible(false);
+    }
 
-	@UiField
-	PasswordTextBox passwordConf;
+    @UiHandler("createUser")
+    void onCreateUserClicked(ClickEvent event) {
+        presenter.onSubmitClicked();
+    }
 
-	@UiField
-	Button createUser;
+    @UiHandler("cancel")
+    void onCancelClicked(ClickEvent event) {
+        presenter.onCancelClicked();
+    }
 
-	@UiField
-	Label errorLabel;
+    @Override
+    public NewUserDetails getNewUserDetails() {
+        String user = username.getValue();
+        String emailStr = email.getValue();
+        String passwd = password.getValue();
+        return new NewUserDetails(user, emailStr, passwd);
+    }
 
-	private Presenter<T> presenter;
+    @Override
+    public void setPresenter(Presenter<T> presenter) {
+        this.presenter = presenter;
+    }
 
-	public NewUserFormImpl() {
-		initWidget(uiBinder.createAndBindUi(this));
-		errorLabel.setVisible(false);
-	}
-
-	@UiHandler("createUser")
-	void onCreateUserClicked(ClickEvent event) {
-		if (presenter != null) {
-			presenter.onSubmitClicked();
-		}
-	}
-
-	@UiHandler("cancel")
-	void onCancelClicked(ClickEvent event) {
-		if (presenter != null) {
-			presenter.onCancelClicked();
-		}
-	}
-
-	@Override
-	public NewUserDetails getNewUserDetails() {
-		String user = username.getValue();
-		String emailStr = email.getValue();
-		String passwd = password.getValue();
-		return new NewUserDetails(user, emailStr, passwd);
-	}
-
-	@Override
-	public void setPresenter(Presenter<T> presenter) {
-		this.presenter = presenter;
-	}
-
-	@Override
-	public Widget asWidget() {
-		return this;
-	}
+    @Override
+    public Widget asWidget() {
+        return this;
+    }
 
 }

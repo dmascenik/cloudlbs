@@ -29,7 +29,7 @@ public class NoAuthGinModule extends AbstractGinModule {
      * Views use generics, so their bindings require TypeLiteral and can become
      * rather verbose.
      */
-    private void bindViews() {
+    protected void bindViews() {
         bind(new TypeLiteral<LoginForm<LoginCredentials>>() {
         }).to(new TypeLiteral<LoginFormImpl<LoginCredentials>>() {
         }).in(Singleton.class);

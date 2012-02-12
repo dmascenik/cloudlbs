@@ -5,15 +5,12 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface LoginForm<T> {
 
-	public interface Presenter<T> {
-		void onSignInClicked();
+    public interface Presenter<T> {
+        void onSignInClicked();
+        void onNewUserClicked();
+    }
 
-		void onNewUserClicked();
-	}
-
-	void setPresenter(Presenter<T> presenter);
-
-	LoginCredentials getLoginCredentials();
-
-	Widget asWidget();
+    void setPresenter(Presenter<T> presenter);
+    LoginCredentials getLoginCredentials();
+    Widget asWidget();
 }

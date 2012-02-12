@@ -1,6 +1,6 @@
 package com.cloudlbs.web.noauth.client.command;
 
-import com.cloudlbs.web.noauth.client.LoginServiceAsync;
+import com.cloudlbs.web.noauth.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.noauth.client.event.LoginSubmitEvent;
 import com.cloudlbs.web.noauth.client.event.LoginSubmitEventHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 
 public class LoginSubmitCommand implements LoginSubmitEventHandler {
 
-    @Inject LoginServiceAsync loginService;
+    @Inject RPCLoginServiceAsync loginService;
 
     @Override
     public void onLoginSubmit(LoginSubmitEvent event) {

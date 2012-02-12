@@ -5,13 +5,22 @@
 		<welcome-file>noauth.html</welcome-file>
 	</welcome-file-list>
 
-    <servlet>
-        <servlet-name>loginServlet</servlet-name>
-        <servlet-class>com.cloudlbs.web.noauth.server.LoginServiceImpl</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>loginServlet</servlet-name>
-        <url-pattern>/noauth/login/*</url-pattern>
-    </servlet-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/spring/applicationContext.xml</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>loginServlet</servlet-name>
+		<servlet-class>com.cloudlbs.web.server.noauth.RPCLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loginServlet</servlet-name>
+		<url-pattern>/noauth/login/*</url-pattern>
+	</servlet-mapping>
 
 </web-app>

@@ -1,15 +1,12 @@
 package com.cloudlbs.web.noauth.client.presenter;
 
+import com.cloudlbs.web.core.gwt.BaseAsyncCallback;
 import com.cloudlbs.web.core.gwt.Presenter;
 import com.cloudlbs.web.noauth.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.view.LoginForm;
-import com.cloudlbs.web.noauth.shared.exception.EvilException;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.StatusCodeException;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
@@ -33,30 +30,12 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
         LoginCredentials creds = view.getLoginCredentials();
         System.out.println("Logging in " + creds.getUsername());
 
-        loginService.login(creds, new AsyncCallback<Boolean>() {
-
+        loginService.login(creds, new BaseAsyncCallback<Boolean>(view.getWrapper()) {
             @Override
             public void onSuccess(Boolean result) {
                 System.out.println("Login " + (result ? "success" : "failed"));
                 if (!result) {
                     view.showErrorMessage("Username or password is incorrect");
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable caught) {
-                try {
-                    throw caught;
-                } catch (StatusCodeException e) {
-                    if (e.getStatusCode() == 0) {
-                        Window.alert("We've lost contact with the mothership!");
-                    } else {
-                        Window.alert("Aww nuts... This is embarrassing. Please try again in a moment.");
-                    }
-                } catch (EvilException e) {
-                    view.showErrorMessage(e.getMessage());
-                } catch (Throwable e) {
-                    Window.alert(e.getMessage());
                 }
             }
         });

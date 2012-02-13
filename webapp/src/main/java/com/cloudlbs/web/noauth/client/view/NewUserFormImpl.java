@@ -1,5 +1,7 @@
 package com.cloudlbs.web.noauth.client.view;
 
+import com.cloudlbs.web.core.gwt.BaseViewImpl;
+import com.cloudlbs.web.core.gwt.ui.wrapper.StandardPanel;
 import com.cloudlbs.web.noauth.shared.model.NewUserDetails;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -8,18 +10,18 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 /**
  * 
  * @author danmascenik
  * 
  */
-public class NewUserFormImpl<T> extends Composite implements NewUserForm<T> {
+public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
 
     @UiTemplate("NewUserForm.ui.xml")
     interface Binder extends UiBinder<Widget, NewUserFormImpl<?>> {
@@ -36,8 +38,11 @@ public class NewUserFormImpl<T> extends Composite implements NewUserForm<T> {
 
     private Presenter<T> presenter;
 
-    public NewUserFormImpl() {
+    @Inject
+    public NewUserFormImpl(StandardPanel wrapper) {
+        super(wrapper);
         initWidget(uiBinder.createAndBindUi(this));
+        wrapper.setContents(this);
         errorLabel.setVisible(false);
     }
 
@@ -62,11 +67,6 @@ public class NewUserFormImpl<T> extends Composite implements NewUserForm<T> {
     @Override
     public void setPresenter(Presenter<T> presenter) {
         this.presenter = presenter;
-    }
-
-    @Override
-    public Widget asWidget() {
-        return this;
     }
 
 }

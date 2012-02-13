@@ -1,9 +1,9 @@
 package com.cloudlbs.web.noauth.client.view;
 
+import com.cloudlbs.web.core.gwt.View;
 import com.cloudlbs.web.noauth.shared.model.NewUserDetails;
-import com.google.gwt.user.client.ui.Widget;
 
-public interface NewUserForm<T> {
+public interface NewUserForm<T> extends View {
 
     /*
      * Things the view can ask the presenter to do
@@ -18,5 +18,5 @@ public interface NewUserForm<T> {
      */
     void setPresenter(Presenter<T> presenter);
     NewUserDetails getNewUserDetails();
-    Widget asWidget();
+
 }

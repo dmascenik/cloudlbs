@@ -3,7 +3,6 @@ package com.cloudlbs.web.server.noauth;
 import javax.servlet.ServletException;
 
 import com.cloudlbs.web.noauth.client.RPCLoginService;
-import com.cloudlbs.web.noauth.shared.exception.EvilException;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
 import com.cloudlbs.web.service.LoginService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -19,7 +18,7 @@ public class RPCLoginServlet extends RemoteServiceServlet implements RPCLoginSer
     }
 
     @Override
-    public boolean login(LoginCredentials credentials) throws EvilException {
+    public boolean login(LoginCredentials credentials) {
         return loginService.login(credentials);
     }
 

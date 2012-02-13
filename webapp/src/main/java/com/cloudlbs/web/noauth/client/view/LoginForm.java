@@ -1,9 +1,9 @@
 package com.cloudlbs.web.noauth.client.view;
 
+import com.cloudlbs.web.core.gwt.View;
 import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
-import com.google.gwt.user.client.ui.Widget;
 
-public interface LoginForm<T> {
+public interface LoginForm<T> extends View {
 
     /*
      * Things the view can ask the presenter to do
@@ -20,5 +20,5 @@ public interface LoginForm<T> {
     void showErrorMessage(String message);
     void clearForm();
     LoginCredentials getLoginCredentials();
-    Widget asWidget();
+
 }

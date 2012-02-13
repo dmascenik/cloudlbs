@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<g:VerticalPanel>
+		<g:SimplePanel ui:field="panel" />
+		<g:DialogBox ui:field="alertBox" animationEnabled="true">
+			<g:VerticalPanel spacing="5">
+				<g:Label text="New Label" ui:field="alertMessage" />
+				<g:Cell horizontalAlignment="ALIGN_RIGHT">
+					<g:Button ui:field="alertCloseButton">Close</g:Button>
+				</g:Cell>
+			</g:VerticalPanel>
+		</g:DialogBox>
+	</g:VerticalPanel>
+
+</ui:UiBinder>

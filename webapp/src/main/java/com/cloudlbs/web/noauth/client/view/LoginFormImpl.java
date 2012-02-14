@@ -63,7 +63,6 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     @Override
     public void clearForm() {
         errorLabel.setVisible(false);
-        errorLabel.setText("");
         username.setValue("");
         password.setValue("");
     }

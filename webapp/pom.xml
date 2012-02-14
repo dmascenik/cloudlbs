@@ -108,6 +108,7 @@
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>generateAsync</goal>
+							<goal>i18n</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -123,6 +124,7 @@
 					<logLevel>INFO</logLevel>
 					<copyWebapp>true</copyWebapp>
 					<htmlunit>FF3</htmlunit>
+                    <i18nMessagesBundle>com.cloudlbs.web.core.Messages</i18nMessagesBundle>
 				</configuration>
 			</plugin>
 

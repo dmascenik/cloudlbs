@@ -3,9 +3,10 @@
 
 	<g:VerticalPanel>
 		<g:SimplePanel ui:field="panel" />
-		<g:DialogBox ui:field="alertBox" animationEnabled="true">
+		<g:DialogBox ui:field="alertBox" animationEnabled="true"
+			visible="false">
 			<g:VerticalPanel spacing="5">
-				<g:Label text="New Label" ui:field="alertMessage" />
+				<g:Label ui:field="alertMessage" />
 				<g:Cell horizontalAlignment="ALIGN_RIGHT">
 					<g:Button ui:field="alertCloseButton">Close</g:Button>
 				</g:Cell>

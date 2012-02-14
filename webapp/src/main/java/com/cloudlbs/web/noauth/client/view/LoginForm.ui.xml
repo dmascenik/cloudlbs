@@ -9,8 +9,8 @@
 		<g:row>
 			<g:cell />
 			<g:customCell>
-				<g:Label text="Error Message" styleName="{style.error}"
-					ui:field="errorLabel" visible="false" />
+				<g:Label styleName="{style.error}" ui:field="errorLabel"
+					text="Error Message Here" height="30" />
 			</g:customCell>
 		</g:row>
 		<g:row>

@@ -1,6 +1,7 @@
 package com.cloudlbs.web.core.gwt;
 
 import com.cloudlbs.web.core.gwt.ui.wrapper.Wrapper;
+import com.cloudlbs.web.i18n.msg.Messages;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 
@@ -15,11 +16,13 @@ import com.google.gwt.user.client.rpc.StatusCodeException;
 public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
 
     private Wrapper wrapper;
-    
-    public BaseAsyncCallback(Wrapper wrapper) {
+    private Messages messages;
+
+    public BaseAsyncCallback(Wrapper wrapper, Messages messages) {
         this.wrapper = wrapper;
+        this.messages = messages;
     }
-    
+
     /**
      * Captures any kind of {@link StatusCodeException} and handles it in one of
      * two ways:
@@ -41,7 +44,7 @@ public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
                  * through. The network could be down, the client may have lost
                  * connectivity, etc.
                  */
-                wrapper.alert("We've lost contact with the mothership!");
+                wrapper.alert(messages.noNetworkConnectivity());
             } else {
                 /*
                  * This is anything other than a 200 status code from the
@@ -55,6 +58,6 @@ public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
     }
 
     private void showEmbarrassingMessage() {
-        wrapper.alert("Aww nuts... This is embarrassing. Please try again in a moment.");
+        wrapper.alert(messages.unknownError());
     }
 }

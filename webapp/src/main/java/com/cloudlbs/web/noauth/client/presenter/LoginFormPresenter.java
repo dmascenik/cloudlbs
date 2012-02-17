@@ -2,6 +2,7 @@ package com.cloudlbs.web.noauth.client.presenter;
 
 import com.cloudlbs.web.core.gwt.BaseAsyncCallback;
 import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.i18n.msg.Messages;
 import com.cloudlbs.web.noauth.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.noauth.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.noauth.client.view.LoginForm;
@@ -12,30 +13,29 @@ import com.google.inject.Inject;
 
 public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginCredentials> {
 
-    private final RPCLoginServiceAsync loginService;
-    private final HandlerManager eventBus;
-    private final LoginForm<LoginCredentials> view;
+    private RPCLoginServiceAsync loginService;
+    private HandlerManager eventBus;
+    private LoginForm<LoginCredentials> view;
+    private Messages messages;
 
     @Inject
     public LoginFormPresenter(HandlerManager eventBus, LoginForm<LoginCredentials> view,
-            RPCLoginServiceAsync loginService) {
+            RPCLoginServiceAsync loginService, Messages messages) {
         this.eventBus = eventBus;
         this.view = view;
         this.view.setPresenter(this);
         this.loginService = loginService;
+        this.messages = messages;
     }
 
     @Override
     public void onSignInClicked() {
         LoginCredentials creds = view.getLoginCredentials();
-        System.out.println("Logging in " + creds.getUsername());
-
-        loginService.login(creds, new BaseAsyncCallback<Boolean>(view.getWrapper()) {
+        loginService.login(creds, new BaseAsyncCallback<Boolean>(view.getWrapper(), messages) {
             @Override
             public void onSuccess(Boolean result) {
-                System.out.println("Login " + (result ? "success" : "failed"));
                 if (!result) {
-                    view.showErrorMessage("Username or password is incorrect");
+                    view.showErrorMessage(messages.usernameOrPasswordIncorrect());
                 }
             }
         });

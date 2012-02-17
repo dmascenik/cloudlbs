@@ -1,5 +1,7 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+	ui:generateLocales="default">
 
 	<g:VerticalPanel>
 		<g:SimplePanel ui:field="panel" />
@@ -8,7 +10,9 @@
 			<g:VerticalPanel spacing="5">
 				<g:Label ui:field="alertMessage" />
 				<g:Cell horizontalAlignment="ALIGN_RIGHT">
-					<g:Button ui:field="alertCloseButton">Close</g:Button>
+					<g:Button ui:field="alertCloseButton">
+						<ui:msg key="closeButtonText" description="Close button text">Close</ui:msg>
+					</g:Button>
 				</g:Cell>
 			</g:VerticalPanel>
 		</g:DialogBox>

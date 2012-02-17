@@ -1,5 +1,8 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+	ui:generateLocales="default">
+
 	<ui:style>
 		.error {
 			color: red;
@@ -9,14 +12,16 @@
 		<g:row>
 			<g:cell />
 			<g:customCell>
-				<g:Label styleName="{style.error}" ui:field="errorLabel"
-					text="Error Message Here" height="30" />
+				<g:Label styleName="{style.error}" ui:field="errorLabel" />
 			</g:customCell>
 		</g:row>
 		<g:row>
 			<g:customCell>
 				<g:Label text="Username" wordWrap="false"
-					horizontalAlignment="ALIGN_RIGHT" />
+					horizontalAlignment="ALIGN_RIGHT">
+					<ui:attribute name='text' key="usernameLabel"
+						description='Username form label' />
+				</g:Label>
 			</g:customCell>
 			<g:customCell>
 				<g:TextBox ui:field="username" maxLength="30" />
@@ -24,7 +29,10 @@
 		</g:row>
 		<g:row>
 			<g:customCell>
-				<g:Label text="Password" horizontalAlignment="ALIGN_RIGHT" />
+				<g:Label text="Password" horizontalAlignment="ALIGN_RIGHT">
+					<ui:attribute name='text' key="passwordLabel"
+						description='Password form label' />
+				</g:Label>
 			</g:customCell>
 			<g:customCell>
 				<g:PasswordTextBox ui:field="password" maxLength="30" />
@@ -33,13 +41,18 @@
 		<g:row>
 			<g:cell />
 			<g:customCell>
-				<g:Button width="99px" ui:field="signIn">Sign In</g:Button>
+				<g:Button width="99px" ui:field="signIn">
+					<ui:msg key="signInButtonText" description="Sign in button text">Sign In</ui:msg>
+				</g:Button>
 			</g:customCell>
 		</g:row>
 		<g:row>
 			<g:cell />
 			<g:customCell>
-				<g:Hyperlink text="New User" ui:field="newUser" />
+				<g:Hyperlink text="New User" ui:field="newUser">
+					<ui:attribute name='text' key="newUserLink"
+						description='New User link text' />
+				</g:Hyperlink>
 			</g:customCell>
 		</g:row>
 	</g:Grid>

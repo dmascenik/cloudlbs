@@ -11,8 +11,8 @@ import com.google.inject.Inject;
 public class NewUserFormPresenter implements Presenter,
 		NewUserForm.Presenter<NewUserDetails> {
 
-	private final HandlerManager eventBus;
-	private final NewUserForm<NewUserDetails> view;
+	private HandlerManager eventBus;
+	private NewUserForm<NewUserDetails> view;
 
 	@Inject
 	public NewUserFormPresenter(HandlerManager eventBus,

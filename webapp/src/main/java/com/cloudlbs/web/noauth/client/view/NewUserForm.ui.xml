@@ -1,5 +1,8 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
+	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+	ui:generateLocales="default">
+
 	<ui:style>
 		.error {
 			color: red;
@@ -16,7 +19,10 @@
 		<g:row>
 			<g:customCell>
 				<g:Label text="Username" wordWrap="false"
-					horizontalAlignment="ALIGN_RIGHT" />
+					horizontalAlignment="ALIGN_RIGHT">
+					<ui:attribute name='text' key="usernameLabel"
+						description='Username form label' />
+				</g:Label>
 			</g:customCell>
 			<g:customCell>
 				<g:TextBox ui:field="username" maxLength="30" />
@@ -24,7 +30,10 @@
 		</g:row>
 		<g:row>
 			<g:customCell>
-				<g:Label text="Email" horizontalAlignment="ALIGN_RIGHT" />
+				<g:Label text="Email" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
+					<ui:attribute name='text' key="emailLabel"
+						description='Email form label' />
+				</g:Label>
 			</g:customCell>
 			<g:customCell>
 				<g:TextBox ui:field="email" maxLength="30" />
@@ -32,7 +41,11 @@
 		</g:row>
 		<g:row>
 			<g:customCell>
-				<g:Label text="Password" horizontalAlignment="ALIGN_RIGHT" />
+				<g:Label text="Password" wordWrap="false"
+					horizontalAlignment="ALIGN_RIGHT">
+					<ui:attribute name='text' key="passwordLabel"
+						description='Password form label' />
+				</g:Label>
 			</g:customCell>
 			<g:customCell>
 				<g:PasswordTextBox ui:field="password" maxLength="30" />
@@ -40,7 +53,11 @@
 		</g:row>
 		<g:row>
 			<g:customCell>
-				<g:Label text="Confirm" horizontalAlignment="ALIGN_RIGHT" />
+				<g:Label text="Confirm" wordWrap="false"
+					horizontalAlignment="ALIGN_RIGHT">
+					<ui:attribute name='text' key="confirmPasswordLabel"
+						description='Confirm password form label' />
+				</g:Label>
 			</g:customCell>
 			<g:customCell>
 				<g:PasswordTextBox ui:field="passwordConf"
@@ -51,8 +68,12 @@
 			<g:cell />
 			<g:customCell>
 				<g:HTMLPanel>
-					<g:Button width="99px" ui:field="createUser">Submit</g:Button>
-					<g:Button width="99px" ui:field="cancel">Cancel</g:Button>
+					<g:Button width="99px" ui:field="createUser">
+						<ui:msg key="submitButtonText" description="Submit button text">Submit</ui:msg>
+					</g:Button>
+					<g:Button width="99px" ui:field="cancel">
+						<ui:msg key="cancelButtonText" description="Cancel button text">Cancel</ui:msg>
+					</g:Button>
 				</g:HTMLPanel>
 			</g:customCell>
 		</g:row>

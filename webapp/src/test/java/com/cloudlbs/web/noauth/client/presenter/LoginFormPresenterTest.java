@@ -43,7 +43,7 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
         verify(loginService).login(argCreds.capture(), argCallback.capture());
 
         assertEquals(creds, argCreds.getValue());
-        
+
         argCallback.getValue().onSuccess(true);
     }
 
@@ -59,7 +59,7 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
     public void before() throws Exception {
         MockitoAnnotations.initMocks(this);
         eventBus = new HandlerManager(null);
-        presenter = new LoginFormPresenter(eventBus, view, loginService);
+        presenter = new LoginFormPresenter(eventBus, view, loginService, null);
     }
 
     @After

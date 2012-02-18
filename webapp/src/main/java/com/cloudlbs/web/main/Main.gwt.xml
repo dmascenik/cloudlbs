@@ -1,4 +1,4 @@
-<module rename-to="noauth">
+<module rename-to="main">
 	<inherits name="com.google.gwt.user.theme.standard.Standard" />
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="com.google.gwt.inject.Inject" />

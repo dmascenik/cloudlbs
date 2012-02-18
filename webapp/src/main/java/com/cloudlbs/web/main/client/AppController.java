@@ -43,6 +43,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      * Providers lazy-load when Provider.get() is called
      */
     @Inject private Provider<TemporaryViewPresenter> temporaryViewProvider;
+
 //    @Inject private Provider<NewUserFormPresenter> newUserFormProvider;
 
     /**
@@ -53,7 +54,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      */
     @Inject
     public AppController(HandlerManager eventBus) {
-            
+
 //            , NewUserCommand newUserCommand,
 //            CancelNewUserCommand cancelNewUserCommand) {
 //        this.eBus = eventBus;
@@ -87,11 +88,11 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     @Override
     public void go(HasWidgets container) {
         this.container = container;
-//        if ("".equals(History.getToken())) {
-//            History.newItem(HISTORY_LOGIN);
-//        } else {
-//            History.fireCurrentHistoryState();
-//        }
+        if ("".equals(History.getToken())) {
+            History.newItem(HISTORY_DEFAULT);
+        } else {
+            History.fireCurrentHistoryState();
+        }
     }
 
 }

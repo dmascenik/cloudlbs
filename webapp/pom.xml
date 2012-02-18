@@ -70,9 +70,12 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
 					<filesets>
-						<fileset>
-							<directory>src/main/webapp/noauth</directory>
-						</fileset>
+                        <fileset>
+                            <directory>src/main/webapp/noauth</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/webapp/main</directory>
+                        </fileset>
 						<fileset>
 							<directory>src/main/webapp/WEB-INF/deploy</directory>
 						</fileset>
@@ -122,7 +125,7 @@
 					<compileReport>true</compileReport>
 					<modules>
 						<module>com.cloudlbs.web.noauth.NoAuth</module>
-<!-- 						<module>com.cloudlbs.web.main.Main</module> -->
+ 						<module>com.cloudlbs.web.main.Main</module>
 					</modules>
 					<logLevel>INFO</logLevel>
 					<copyWebapp>true</copyWebapp>

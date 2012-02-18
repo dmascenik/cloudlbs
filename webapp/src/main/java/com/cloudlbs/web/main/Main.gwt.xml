@@ -1,0 +1,14 @@
+<module rename-to="noauth">
+	<inherits name="com.google.gwt.user.theme.standard.Standard" />
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.inject.Inject" />
+	<inherits name="com.cloudlbs.web.core.Core" />
+	<inherits name="com.Internationalization" />
+
+	<entry-point class="com.cloudlbs.web.main.client.MainEntryPoint" />
+
+	<source path="client" />
+	<source path="shared" />
+
+	<source path="gwttest" />
+</module>

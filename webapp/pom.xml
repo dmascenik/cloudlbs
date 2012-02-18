@@ -120,12 +120,15 @@
 					<runTarget>noauth.html</runTarget>
 					<!-- Ask GWT to create the Story of Your Compile (SOYC) (gwt:compile) -->
 					<compileReport>true</compileReport>
-					<module>com.cloudlbs.web.noauth.NoAuth</module>
+					<modules>
+						<module>com.cloudlbs.web.noauth.NoAuth</module>
+<!-- 						<module>com.cloudlbs.web.main.Main</module> -->
+					</modules>
 					<logLevel>INFO</logLevel>
 					<copyWebapp>true</copyWebapp>
 					<htmlunit>FF3</htmlunit>
 					<i18nMessagesBundles>
-                        <i18nMessagesBundle>com.cloudlbs.web.i18n.msg.Messages</i18nMessagesBundle>
+						<i18nMessagesBundle>com.cloudlbs.web.i18n.msg.Messages</i18nMessagesBundle>
 					</i18nMessagesBundles>
 				</configuration>
 			</plugin>

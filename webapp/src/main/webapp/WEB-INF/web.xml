@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
-	<welcome-file-list>
-		<welcome-file>noauth.html</welcome-file>
-	</welcome-file-list>
+  <welcome-file-list>
+    <welcome-file>noauth.html</welcome-file>
+  </welcome-file-list>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
 
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/spring/applicationContext.xml</param-value>
-	</context-param>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:/spring/applicationContext.xml</param-value>
+  </context-param>
 
-	<servlet>
-		<servlet-name>loginServlet</servlet-name>
-		<servlet-class>com.cloudlbs.web.server.noauth.RPCLoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>loginServlet</servlet-name>
-		<url-pattern>/noauth/login/*</url-pattern>
-	</servlet-mapping>
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+    <servlet-name>loginServlet</servlet-name>
+    <servlet-class>com.cloudlbs.web.server.noauth.RPCLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginServlet</servlet-name>
+    <url-pattern>/noauth/login/*</url-pattern>
+  </servlet-mapping>
 
 </web-app>

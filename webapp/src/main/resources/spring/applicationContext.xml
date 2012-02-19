@@ -5,9 +5,15 @@
 	                  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
                       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+  <!--
+    Hands off Spring configuration to annotations and JavaConfig.
+  -->
   <context:component-scan base-package="com.cloudlbs.web.server" />
   <context:annotation-config />
-  
+
+  <!--
+    Security configuration is not possible with JavaConfig, so here it is in XML
+  -->
   <security:http security="none" pattern="/noauth/*" />
   <security:http security="none" pattern="/noauth.*" />
   <security:http auto-config="true">

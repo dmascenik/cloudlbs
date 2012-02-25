@@ -1,0 +1,5 @@
+<module>
+	<inherits name="com.google.gwt.i18n.I18N" />
+    <source path="cloudlbs/web/i18n/msg" />
+    <source path="google/gwt/i18n/client" />
+</module>

@@ -1,7 +1,4 @@
 <module>
-	<inherits name="com.google.gwt.user.theme.standard.Standard" />
-	<inherits name="com.google.gwt.user.User" />
-	<inherits name="com.google.gwt.inject.Inject" />
-	<inherits name="com.Internationalization" />
-	<source path="gwt" />
+    <inherits name="com.cloudlbs.web.core.CoreDev" />
+    <inherits name="com.Internationalization" />
 </module>

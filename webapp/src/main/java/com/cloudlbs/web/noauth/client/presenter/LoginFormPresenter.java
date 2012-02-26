@@ -32,31 +32,13 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
     @Override
     public void onSignInClicked() {
         LoginCredentials creds = view.getLoginCredentials();
-//        try {
-//            RequestBuilder rb = new RequestBuilder(RequestBuilder.POST, "j_spring_security_check");
-//            rb.setHeader("Content-Type", "application/x-www-form-urlencoded");
-//            rb.setHeader("Cache-Control", "max-age=0");
-//            rb.setHeader("Accepts", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-//            rb.sendRequest(
-//                    "j_username=" + creds.getUsername() + "&j_password=" + creds.getPassword() + "&submit=Login",
-//                    new RequestCallback() {
-//                        public void onError(Request request, Throwable exception) {
-//                            view.alert(messages.unknownError());
-//                        }
-//                        public void onResponseReceived(Request request, Response response) {
-//                            Window.Location.replace(response.getHeader("Location"));
-//                        }
-//                    });
-//        } catch (Exception e) {
-//            view.alert(messages.unknownError());
-//        }
-
         loginService.login(creds, new BaseAsyncCallback<Boolean>(view.getWrapper(), messages) {
             @Override
             public void onSuccess(Boolean result) {
                 if (!result) {
                     view.showErrorMessage(messages.usernameOrPasswordIncorrect());
                 } else {
+                    // TODO parameterize redirect location
                     Window.Location.replace("main.html");
                 }
             }

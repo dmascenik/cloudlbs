@@ -14,10 +14,10 @@
   <!--
     Security configuration is not possible with JavaConfig, so here it is in XML
   -->
-  <security:http auto-config="true">
-    <security:intercept-url pattern="/noauth/**" access="ROLE_ANONYMOUS" />
-    <security:intercept-url pattern="/noauth.*" access="ROLE_ANONYMOUS" />
-    <security:intercept-url pattern="/**" access="ROLE_USER" />
+  <security:http auto-config="true" use-expressions="true">
+    <security:intercept-url pattern="/noauth/**" access="permitAll()" />
+    <security:intercept-url pattern="/noauth.*" access="permitAll()" />
+    <security:intercept-url pattern="/**" access="isAuthenticated()" />
     <security:form-login login-page="/noauth.html#login" />
   </security:http>
 

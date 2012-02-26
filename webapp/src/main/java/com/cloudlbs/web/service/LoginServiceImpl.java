@@ -25,14 +25,6 @@ public class LoginServiceImpl implements LoginService {
     public boolean login(LoginCredentials credentials) {
         String username = credentials.getUsername();
         String password = credentials.getPassword();
-
-        if (credentials.getUsername().equals("dan")) {
-            System.out.println("Login success");
-            return true;
-        } else if (credentials.getUsername().equals("error")) {
-            throw new RuntimeException("BOOM");
-        }
-
         try {
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,
                     password);

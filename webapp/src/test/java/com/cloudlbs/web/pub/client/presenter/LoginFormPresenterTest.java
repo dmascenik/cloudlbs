@@ -46,6 +46,7 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
         assertEquals(creds, argCreds.getValue());
 
         argCallback.getValue().onSuccess(true);
+        // FIXME This is not a complete test
     }
 
     @Test

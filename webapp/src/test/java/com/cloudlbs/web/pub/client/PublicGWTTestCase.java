@@ -24,7 +24,7 @@ public abstract class PublicGWTTestCase extends GWTTestCase {
 
     @Override
     public String getModuleName() {
-        return "com.cloudlbs.web.noauth.NoAuth";
+        return "com.cloudlbs.web.pub.Public";
     }
 
 }

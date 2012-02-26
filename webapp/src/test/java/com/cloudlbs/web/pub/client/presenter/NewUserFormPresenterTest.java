@@ -29,7 +29,7 @@ public class NewUserFormPresenterTest implements CancelCreateUserEventHandler {
         when(view.getNewUserDetails()).thenReturn(dets);
         presenter.onSubmitClicked();
 
-        // TODO
+        // FIXME not a complete test
     }
 
     @Test

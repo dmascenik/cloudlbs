@@ -8,7 +8,6 @@ import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.pub.client.view.LoginForm;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
@@ -38,8 +37,7 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
                 if (!result) {
                     view.showErrorMessage(messages.usernameOrPasswordIncorrect());
                 } else {
-                    // TODO parametermize login target URL
-                    Window.Location.replace("main.jsp");
+                    view.redirectToAuthenticated();
                 }
             }
         });

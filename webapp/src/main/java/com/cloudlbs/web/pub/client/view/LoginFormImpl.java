@@ -9,6 +9,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -58,6 +59,12 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     public void showErrorMessage(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
+    }
+
+    @Override
+    public void redirectToAuthenticated() {
+        // FIXME parametermize login target URL
+        Window.Location.replace("main.jsp");
     }
 
     @Override

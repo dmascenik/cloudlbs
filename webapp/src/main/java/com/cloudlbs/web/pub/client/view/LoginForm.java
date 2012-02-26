@@ -19,6 +19,7 @@ public interface LoginForm<T> extends View {
     void setPresenter(Presenter<T> presenter);
     void showErrorMessage(String message);
     void clearForm();
+    void redirectToAuthenticated();
     LoginCredentials getLoginCredentials();
 
 }

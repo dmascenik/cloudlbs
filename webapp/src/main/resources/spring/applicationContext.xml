@@ -23,8 +23,8 @@
       Redirect to the form when not authenticated, but a GWT-RPC call is made from
       the form. The login-processing-url is not used.
     -->
-    <security:form-login login-page="/pub.html#login" />
-    <security:logout logout-url="/logout" logout-success-url="/pub.html" />
+    <security:form-login login-page="/pub.jsp#login" />
+    <security:logout logout-url="/logout" logout-success-url="/pub.jsp" />
   </security:http>
 
   <security:authentication-manager alias="authenticationManager">

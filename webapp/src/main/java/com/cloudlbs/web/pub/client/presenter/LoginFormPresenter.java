@@ -39,7 +39,7 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
                     view.showErrorMessage(messages.usernameOrPasswordIncorrect());
                 } else {
                     // TODO parametermize login target URL
-                    Window.Location.replace("main.html");
+                    Window.Location.replace("main.jsp");
                 }
             }
         });

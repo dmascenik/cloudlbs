@@ -38,10 +38,7 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
                 if (!result) {
                     view.showErrorMessage(messages.usernameOrPasswordIncorrect());
                 } else {
-                    /*
-                     * Redirect to the default welcome-file specified in
-                     * web.xml.
-                     */
+                    // TODO parametermize login target URL
                     Window.Location.replace("main.html");
                 }
             }

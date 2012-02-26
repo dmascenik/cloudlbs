@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
-import com.cloudlbs.web.noauth.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 
 public class LoginServiceImpl implements LoginService {
 

@@ -1,7 +1,0 @@
-<module rename-to="noauth">
-  <inherits name="com.cloudlbs.web.noauth.NoAuthDev" />
-  
-  <!-- Activate full i18n support (compiles many more permutations) -->
-  <inherits name="com.Internationalization" />
-  <inherits name="com.cloudlbs.web.core.Core" />
-</module>

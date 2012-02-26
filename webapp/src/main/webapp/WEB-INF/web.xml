@@ -25,11 +25,11 @@
   
   <servlet>
     <servlet-name>loginServlet</servlet-name>
-    <servlet-class>com.cloudlbs.web.server.noauth.RPCLoginServlet</servlet-class>
+    <servlet-class>com.cloudlbs.web.server.pub.RPCLoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
-    <url-pattern>/noauth/login/*</url-pattern>
+    <url-pattern>/pub/login/*</url-pattern>
   </servlet-mapping>
 
 </web-app>

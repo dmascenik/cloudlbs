@@ -98,7 +98,7 @@
         <configuration>
           <filesets>
             <fileset>
-              <directory>src/main/webapp/noauth</directory>
+              <directory>src/main/webapp/pub</directory>
             </fileset>
             <fileset>
               <directory>src/main/webapp/main</directory>
@@ -154,7 +154,7 @@
           <!-- Ask GWT to create the Story of Your Compile (SOYC) (gwt:compile) -->
           <compileReport>true</compileReport>
           <modules>
-            <module>com.cloudlbs.web.noauth.NoAuthDev</module>
+            <module>com.cloudlbs.web.pub.PublicDev</module>
             <module>com.cloudlbs.web.main.MainDev</module>
           </modules>
           <logLevel>INFO</logLevel>
@@ -261,7 +261,7 @@
                 The production profile activates compilation of the full i18n GWT app (many more permutations built)
               -->
               <modules>
-                <module>com.cloudlbs.web.noauth.NoAuth</module>
+                <module>com.cloudlbs.web.pub.Public</module>
                 <module>com.cloudlbs.web.main.Main</module>
               </modules>
               <style>OBF</style>

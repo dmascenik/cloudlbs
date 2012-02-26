@@ -1,0 +1,7 @@
+<module rename-to="pub">
+  <inherits name="com.cloudlbs.web.pub.PublicDev" />
+  
+  <!-- Activate full i18n support (compiles many more permutations) -->
+  <inherits name="com.Internationalization" />
+  <inherits name="com.cloudlbs.web.core.Core" />
+</module>

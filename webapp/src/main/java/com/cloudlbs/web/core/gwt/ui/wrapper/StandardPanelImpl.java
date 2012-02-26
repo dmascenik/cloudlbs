@@ -44,7 +44,7 @@ public class StandardPanelImpl extends Composite implements StandardPanel {
 
     @Override
     public void setWorking(boolean isWorking) {
-        // TODO Auto-generated method stub
+        // TODO Toggle "working" message
 
     }
 

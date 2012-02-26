@@ -18,7 +18,13 @@
     <security:intercept-url pattern="/pub/**" access="permitAll()" />
     <security:intercept-url pattern="/pub.*" access="permitAll()" />
     <security:intercept-url pattern="/**" access="isAuthenticated()" />
+
+    <!--
+      Redirect to the form when not authenticated, but a GWT-RPC call is made from
+      the form. The login-processing-url is not used.
+    -->
     <security:form-login login-page="/pub.html#login" />
+    <security:logout logout-url="/logout" logout-success-url="/pub.html" />
   </security:http>
 
   <security:authentication-manager alias="authenticationManager">

@@ -1,10 +1,12 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
-	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
-	ui:generateLocales="default">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat' ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+  ui:generateLocales="default">
 
-    <g:HTMLPanel>
-    <p><h2>You're in the app</h2></p>
-    </g:HTMLPanel>
+  <g:HTMLPanel>
+    <p>
+      <h2>You're in the app</h2>
+    </p>
+    <g:Button width="99px" ui:field="logoutButton">Log Out</g:Button>
+  </g:HTMLPanel>
 
 </ui:UiBinder>

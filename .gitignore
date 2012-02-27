@@ -9,7 +9,7 @@ webapp/src/main/gwt-unitCache
 webapp/src/main/webapp/WEB-INF/classes/*
 webapp/src/main/webapp/WEB-INF/lib/*
 webapp/src/main/webapp/WEB-INF/deploy
-webapp/src/main/webapp/noauth
+webapp/src/main/webapp/pub
 webapp/src/main/webapp/main
 webapp/gwt-unitCache
 webapp/www-test

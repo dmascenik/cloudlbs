@@ -113,6 +113,9 @@
               <directory>src/main/webapp/WEB-INF/deploy</directory>
             </fileset>
             <fileset>
+              <directory>src/main/webapp/WEB-INF/lib</directory>
+            </fileset>
+            <fileset>
               <directory>src/main/gwt-unitCache</directory>
             </fileset>
             <fileset>
@@ -153,7 +156,7 @@
           documentation at codehaus.org -->
         <configuration>
           <!-- URL that should be automatically opened in the GWT shell (gwt:run). -->
-          <runTarget>noauth.html</runTarget>
+          <runTarget>main.jsp</runTarget>
           <!-- Ask GWT to create the Story of Your Compile (SOYC) (gwt:compile) -->
           <compileReport>true</compileReport>
           <modules>

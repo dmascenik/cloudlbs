@@ -15,6 +15,9 @@
 
   <properties>
     <gwt.test.mode>htmlunit</gwt.test.mode>
+
+    <!-- Do not put WARs in Nexus -->
+    <disable.artifact.deployment>true</disable.artifact.deployment>
   </properties>
 
   <dependencies>

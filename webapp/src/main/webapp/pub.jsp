@@ -2,7 +2,7 @@
     response.setContentType("text/html; charset=UTF-8"); 
     response.setHeader("Pragma","no-cache" );
     response.setHeader("Expires","-1" );
-    response.setHeader("Cache-Control","no-store" );
+    response.setHeader("Cache-Control","private,no-cache,no-store,must-revalidate,max-age=0" );
 %>
 <!DOCTYPE HTML>
 <html>

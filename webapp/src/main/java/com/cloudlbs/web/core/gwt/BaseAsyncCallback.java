@@ -1,13 +1,13 @@
 package com.cloudlbs.web.core.gwt;
 
-import com.cloudlbs.web.core.gwt.ui.wrapper.Wrapper;
 import com.cloudlbs.web.i18n.msg.Messages;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.StatusCodeException;
 
 /**
  * A standard implementation of GWT's {@link AsyncCallback} that handles some
- * common failure cases.
+ * common failure cases. A {@link View} must be provided in order to show error
+ * messages and a "working" indicator.
  * 
  * @author danmascenik
  * 
@@ -15,12 +15,61 @@ import com.google.gwt.user.client.rpc.StatusCodeException;
  */
 public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
 
-    private Wrapper wrapper;
+    private View view;
     private Messages messages;
 
-    public BaseAsyncCallback(Wrapper wrapper, Messages messages) {
-        this.wrapper = wrapper;
+    /**
+     * Convenience constructor that immediately toggles the view's "working"
+     * indicator on.
+     * 
+     * @param view
+     * @param messages
+     */
+    public BaseAsyncCallback(View view, Messages messages) {
+        this(view, messages, true);
+    }
+
+    /**
+     * Allows immediate toggling of the "working" indicator to be deferred for
+     * later.
+     * 
+     * @param view
+     * @param messages
+     */
+    public BaseAsyncCallback(View view, Messages messages, boolean setWorkingImmediately) {
+        this.view = view;
         this.messages = messages;
+        if (setWorkingImmediately) {
+            view.setWorking(true);
+        }
+    }
+
+    /**
+     * Activate/deactivate the "working" indicator manually.
+     * 
+     * @param isWorking
+     */
+    public void setWorkingIndicatorActive(boolean isWorking) {
+        view.setWorking(isWorking);
+    }
+
+    /**
+     * Called when the async call completed successfully, after other view state
+     * management like turning off the "working" indicator completes.
+     * 
+     * @param result
+     */
+    public abstract void success(T result);
+
+    /**
+     * Called when the async call failed, after other view state management like
+     * turning off the "working" indicator completes. The default implementation
+     * does nothing.
+     * 
+     * @param result
+     */
+    public void failure(Throwable caught) {
+        // does nothing
     }
 
     /**
@@ -32,9 +81,11 @@ public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
      * <li>If the connection was made, but an unchecked exception occurred,
      * present a generic error message asking the user to try again later.</li>
      * </ul>
+     * Finishes by dispatching to {@link #failure(Throwable)}
      */
     @Override
-    public void onFailure(Throwable caught) {
+    public final void onFailure(Throwable caught) {
+        view.setWorking(false);
         try {
             throw caught;
         } catch (StatusCodeException e) {
@@ -44,7 +95,7 @@ public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
                  * through. The network could be down, the client may have lost
                  * connectivity, etc.
                  */
-                wrapper.alert(messages.noNetworkConnectivity());
+                view.alert(messages.noNetworkConnectivity());
             } else {
                 /*
                  * This is anything other than a 200 status code from the
@@ -55,9 +106,20 @@ public abstract class BaseAsyncCallback<T> implements AsyncCallback<T> {
         } catch (Throwable e) {
             showEmbarrassingMessage();
         }
+        failure(caught);
+    }
+
+    /**
+     * Turns off the "working" indicator and dispatches to
+     * {@link #success(Object)}
+     */
+    @Override
+    public final void onSuccess(T result) {
+        view.setWorking(false);
+        success(result);
     }
 
     private void showEmbarrassingMessage() {
-        wrapper.alert(messages.unknownError());
+        view.alert(messages.unknownError());
     }
 }

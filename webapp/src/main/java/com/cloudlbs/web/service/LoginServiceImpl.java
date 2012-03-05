@@ -23,8 +23,19 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean login(LoginCredentials credentials) {
+        try {
+            // Just for playing with the working indicator
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         String username = credentials.getUsername();
         String password = credentials.getPassword();
+        if ("error".equals(username)) {
+            throw new RuntimeException("BOOM");
+        }
+
         try {
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,
                     password);

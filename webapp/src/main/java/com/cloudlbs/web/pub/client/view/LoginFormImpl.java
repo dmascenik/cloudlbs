@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.gwt.user.client.ui.Image;
 
 /**
  * 
@@ -35,6 +36,7 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     @UiField PasswordTextBox password;
     @UiField Button signIn;
     @UiField Label errorLabel;
+    @UiField Image workingSpinner;
 
     @Inject
     public LoginFormImpl(StandardPanel wrapper) {
@@ -53,6 +55,12 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     void onNewUserClicked(ClickEvent event) {
         errorLabel.setVisible(false);
         presenter.onNewUserClicked();
+    }
+
+    @Override
+    public void setWorking(boolean isWorking) {
+        workingSpinner.setVisible(isWorking);
+        signIn.setEnabled(!isWorking);
     }
 
     @Override

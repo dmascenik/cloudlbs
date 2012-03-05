@@ -1,21 +1,54 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
-	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
-	ui:generateLocales="default">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat' ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+  ui:generateLocales="default">
 
-	<g:VerticalPanel>
-		<g:SimplePanel ui:field="panel" />
-		<g:DialogBox ui:field="alertBox" animationEnabled="true"
-			visible="false">
-			<g:VerticalPanel spacing="5">
-				<g:Label ui:field="alertMessage" />
-				<g:Cell horizontalAlignment="ALIGN_RIGHT">
-					<g:Button ui:field="alertCloseButton">
-						<ui:msg key="closeButtonText" description="Close button text">Close</ui:msg>
-					</g:Button>
-				</g:Cell>
-			</g:VerticalPanel>
-		</g:DialogBox>
-	</g:VerticalPanel>
+  <ui:style>
+    .opacity {
+    	background-color: #ffffff;
+    }
+    
+    .opacity,.text {
+    	position: fixed;
+    	left: 50%;
+    	padding: 2px 15px 3px 15px;
+    	margin-left: -50px;
+    	top: -1px;
+    	font-size: 14px;
+    	text-align: center;
+    	color: #aaaaaa;
+    	z-index: 1000;
+    }
+    
+    .hidden {
+    	visibility: hidden;
+    }
+  </ui:style>
+
+  <g:VerticalPanel>
+
+    <!-- All the content goes in here -->
+    <g:SimplePanel ui:field="panel" />
+
+    <g:DialogBox ui:field="alertBox" animationEnabled="true" visible="false">
+      <g:VerticalPanel spacing="5">
+        <g:Label ui:field="alertMessage" />
+        <g:Cell horizontalAlignment="ALIGN_RIGHT">
+          <g:Button ui:field="alertCloseButton">
+            <ui:msg key="closeButtonText" description="Close button text">Close</ui:msg>
+          </g:Button>
+        </g:Cell>
+      </g:VerticalPanel>
+    </g:DialogBox>
+    <g:HTML styleName="workingIndicator" ui:field="workingIndicator" visible="false">
+      <span class="{style.opacity}">
+        <span ui:field="workingIndicatorBackgroundText" class="{style.hidden}">
+          <ui:msg key="workingIndicatorText">Working...</ui:msg>
+        </span>
+      </span>
+      <span ui:field="workingIndicatorLabel" class="{style.text}">
+        <ui:msg key="workingIndicatorText">Working...</ui:msg>
+      </span>
+    </g:HTML>
+  </g:VerticalPanel>
 
 </ui:UiBinder>

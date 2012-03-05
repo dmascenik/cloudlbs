@@ -1,18 +1,25 @@
 package com.cloudlbs.web.core.gwt.ui.wrapper;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * @see SimplePanel
+ * @author danmascenik
+ * 
+ */
 public class StandardPanelImpl extends Composite implements StandardPanel {
 
     @UiTemplate("StandardPanel.ui.xml")
@@ -25,6 +32,9 @@ public class StandardPanelImpl extends Composite implements StandardPanel {
     @UiField DialogBox alertBox;
     @UiField Label alertMessage;
     @UiField Button alertCloseButton;
+    @UiField HTML workingIndicator;
+    @UiField SpanElement workingIndicatorLabel;
+    @UiField SpanElement workingIndicatorBackgroundText;
 
     public StandardPanelImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -44,8 +54,7 @@ public class StandardPanelImpl extends Composite implements StandardPanel {
 
     @Override
     public void setWorking(boolean isWorking) {
-        // TODO Toggle "working" message
-
+        workingIndicator.setVisible(isWorking);
     }
 
     @Override

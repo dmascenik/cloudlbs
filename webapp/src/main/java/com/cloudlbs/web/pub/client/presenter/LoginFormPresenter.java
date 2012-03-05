@@ -31,9 +31,9 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
     @Override
     public void onSignInClicked() {
         LoginCredentials creds = view.getLoginCredentials();
-        loginService.login(creds, new BaseAsyncCallback<Boolean>(view.getWrapper(), messages) {
+        loginService.login(creds, new BaseAsyncCallback<Boolean>(view, messages) {
             @Override
-            public void onSuccess(Boolean result) {
+            public void success(Boolean result) {
                 if (!result) {
                     view.showErrorMessage(messages.usernameOrPasswordIncorrect());
                 } else {
@@ -42,6 +42,7 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
             }
         });
     }
+
     @Override
     public void onNewUserClicked() {
         eventBus.fireEvent(new NewUserRequestEvent());

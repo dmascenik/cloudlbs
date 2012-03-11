@@ -13,12 +13,6 @@
 
   <g:Grid>
     <g:row>
-      <g:cell />
-      <g:customCell>
-        <g:Label ui:field="errorLabel" styleName="{global.css.validationMsg}" text="Error message" />
-      </g:customCell>
-    </g:row>
-    <g:row>
       <g:customCell>
         <g:Label text="Username" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
           <ui:attribute name="text" key="usernameLabel" description="Username form label" />
@@ -47,6 +41,14 @@
           </g:Button>
           <g:Image resource="{global.workingSpinner}" styleName="{style.loginSpinner}" ui:field="workingSpinner" />
         </g:HorizontalPanel>
+      </g:customCell>
+    </g:row>
+    <g:row>
+      <g:customCell>
+        <g:Image resource="{global.spacer}" height="20" width="1" />
+      </g:customCell>
+      <g:customCell>
+        <g:Label ui:field="errorLabel" styleName="{global.css.validationMsg}" text="Error message" />
       </g:customCell>
     </g:row>
     <g:row>

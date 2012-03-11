@@ -9,6 +9,9 @@ public interface Resources extends ClientBundle {
     @Source("img/working-spinner-small.gif")
     ImageResource workingSpinner();
 
+    @Source("img/spacer.gif")
+    ImageResource spacer();
+
     @Source("css/GlobalStyles.css")
     CloudLBSStyles css();
 

@@ -10,4 +10,5 @@ public class CoreGinModule extends AbstractGinModule {
     protected void configure() {
         bind(StandardPanel.class).to(StandardPanelImpl.class);
     }
+
 }

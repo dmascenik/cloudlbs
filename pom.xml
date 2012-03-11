@@ -160,6 +160,8 @@
                     <versionRange>[2.3.0-1,)</versionRange>
                     <goals>
                       <goal>generateAsync</goal>
+                      <goal>resources</goal>
+                      <goal>css</goal>
                       <goal>i18n</goal>
                     </goals>
                   </pluginExecutionFilter>

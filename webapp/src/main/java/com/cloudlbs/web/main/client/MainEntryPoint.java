@@ -1,6 +1,6 @@
 package com.cloudlbs.web.main.client;
 
-import com.google.gwt.core.client.EntryPoint;
+import com.cloudlbs.web.core.gwt.CloudLBSEntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -10,12 +10,12 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  * @author danmascenik
  */
-public class MainEntryPoint implements EntryPoint {
+public class MainEntryPoint extends CloudLBSEntryPoint {
 
-	private MainGinjector injector = GWT.create(MainGinjector.class);
+    private MainGinjector injector = GWT.create(MainGinjector.class);
 
-	public void onModuleLoad() {
-		injector.getAppController().go(RootPanel.get());
-	}
+    public void doOnModuleLoad() {
+        injector.getAppController().go(RootPanel.get());
+    }
 
 }

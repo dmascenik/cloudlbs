@@ -2,13 +2,20 @@
   ui:generateFormat="com.google.gwt.i18n.rebind.format.PropertiesFormat" ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
   ui:generateLocales="default">
 
-  <ui:with field="res" type="com.cloudlbs.web.core.gwt.Resources" />
+  <ui:with field="global" type="com.cloudlbs.web.core.gwt.Resources" />
+
+  <ui:style>
+    .loginSpinner {
+    	margin-left: 8px;
+    	margin-top: 4px;
+    }
+  </ui:style>
 
   <g:Grid>
     <g:row>
       <g:cell />
       <g:customCell>
-        <g:Label styleName="{res.css.error}" ui:field="errorLabel" />
+        <g:Label ui:field="errorLabel" styleName="{global.css.validationMsg}" text="Error message" />
       </g:customCell>
     </g:row>
     <g:row>
@@ -38,8 +45,7 @@
           <g:Button width="99px" ui:field="signIn">
             <ui:msg key="signInButtonText" description="Sign in button text">Sign In</ui:msg>
           </g:Button>
-          <g:Image resource="{res.workingSpinner}" styleName="{res.css.loginSpinner}" ui:field="workingSpinner"
-            visible="false" />
+          <g:Image resource="{global.workingSpinner}" styleName="{style.loginSpinner}" ui:field="workingSpinner" />
         </g:HorizontalPanel>
       </g:customCell>
     </g:row>

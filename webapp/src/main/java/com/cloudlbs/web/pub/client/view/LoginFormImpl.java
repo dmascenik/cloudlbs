@@ -11,12 +11,12 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.google.gwt.user.client.ui.Image;
 
 /**
  * 
@@ -42,6 +42,8 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     public LoginFormImpl(StandardPanel wrapper) {
         super(wrapper);
         initWidget(uiBinder.createAndBindUi(this));
+        workingSpinner.setVisible(false);
+        errorLabel.setVisible(false);
         wrapper.setContents(this);
     }
 

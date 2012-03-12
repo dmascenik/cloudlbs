@@ -1,5 +1,6 @@
 package com.cloudlbs.web.pub.client.view;
 
+import com.cloudlbs.web.core.gwt.AppConstants;
 import com.cloudlbs.web.core.gwt.BaseViewImpl;
 import com.cloudlbs.web.core.gwt.ui.wrapper.StandardPanel;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
@@ -31,6 +32,7 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
 
     private static Binder uiBinder = GWT.create(Binder.class);
     private Presenter<T> presenter;
+    private AppConstants constants;
 
     @UiField TextBox username;
     @UiField PasswordTextBox password;
@@ -39,7 +41,7 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     @UiField Image workingSpinner;
 
     @Inject
-    public LoginFormImpl(StandardPanel wrapper) {
+    public LoginFormImpl(StandardPanel wrapper, AppConstants constants) {
         super(wrapper);
         initWidget(uiBinder.createAndBindUi(this));
         workingSpinner.setVisible(false);
@@ -73,8 +75,7 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
 
     @Override
     public void redirectToAuthenticated() {
-        // FIXME parametermize login target URL
-        Window.Location.replace("main.jsp");
+        Window.Location.replace(constants.loginTarget());
     }
 
     @Override

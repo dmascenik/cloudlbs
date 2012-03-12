@@ -1,81 +1,82 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui' ui:generateFormat='com.google.gwt.i18n.rebind.format.PropertiesFormat'
-	ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
-	ui:generateLocales="default">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui"
+  ui:generateFormat="com.google.gwt.i18n.rebind.format.PropertiesFormat" ui:generateKeys="com.google.gwt.i18n.rebind.keygen.MD5KeyGenerator"
+  ui:generateLocales="default">
 
-	<ui:style>
-		.error {
-			color: red;
-		}
-	</ui:style>
-	<g:Grid height="180" width="250">
-		<g:row>
-			<g:cell />
-			<g:customCell>
-				<g:Label text="Error Message" styleName="{style.error}"
-					ui:field="errorLabel" />
-			</g:customCell>
-		</g:row>
-		<g:row>
-			<g:customCell>
-				<g:Label text="Username" wordWrap="false"
-					horizontalAlignment="ALIGN_RIGHT">
-					<ui:attribute name='text' key="usernameLabel"
-						description='Username form label' />
-				</g:Label>
-			</g:customCell>
-			<g:customCell>
-				<g:TextBox ui:field="username" maxLength="30" />
-			</g:customCell>
-		</g:row>
-		<g:row>
-			<g:customCell>
-				<g:Label text="Email" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
-					<ui:attribute name='text' key="emailLabel"
-						description='Email form label' />
-				</g:Label>
-			</g:customCell>
-			<g:customCell>
-				<g:TextBox ui:field="email" maxLength="30" />
-			</g:customCell>
-		</g:row>
-		<g:row>
-			<g:customCell>
-				<g:Label text="Password" wordWrap="false"
-					horizontalAlignment="ALIGN_RIGHT">
-					<ui:attribute name='text' key="passwordLabel"
-						description='Password form label' />
-				</g:Label>
-			</g:customCell>
-			<g:customCell>
-				<g:PasswordTextBox ui:field="password" maxLength="30" />
-			</g:customCell>
-		</g:row>
-		<g:row>
-			<g:customCell>
-				<g:Label text="Confirm" wordWrap="false"
-					horizontalAlignment="ALIGN_RIGHT">
-					<ui:attribute name='text' key="confirmPasswordLabel"
-						description='Confirm password form label' />
-				</g:Label>
-			</g:customCell>
-			<g:customCell>
-				<g:PasswordTextBox ui:field="passwordConf"
-					maxLength="30" />
-			</g:customCell>
-		</g:row>
-		<g:row>
-			<g:cell />
-			<g:customCell>
-				<g:HTMLPanel>
-					<g:Button width="99px" ui:field="createUser">
-						<ui:msg key="submitButtonText" description="Submit button text">Submit</ui:msg>
-					</g:Button>
-					<g:Button width="99px" ui:field="cancel">
-						<ui:msg key="cancelButtonText" description="Cancel button text">Cancel</ui:msg>
-					</g:Button>
-				</g:HTMLPanel>
-			</g:customCell>
-		</g:row>
-	</g:Grid>
+  <ui:with field="global" type="com.cloudlbs.web.core.gwt.Resources" />
+
+  <ui:style>
+    .loginSpinner {
+    	margin-left: 8px;
+    	margin-top: 4px;
+    }
+  </ui:style>
+
+  <g:Grid>
+    <g:row>
+      <g:customCell>
+        <g:Label text="Username" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
+          <ui:attribute name="text" key="usernameLabel" description="Username form label" />
+        </g:Label>
+      </g:customCell>
+      <g:customCell>
+        <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE">
+          <g:TextBox ui:field="username" maxLength="30" styleName="{global.css.textBox}" />
+          <g:Label text="Error Message" styleName="{global.css.validationMsg}" ui:field="userNameErrorLabel" />
+        </g:HorizontalPanel>
+      </g:customCell>
+    </g:row>
+    <g:row>
+      <g:customCell>
+        <g:Label text="Email" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
+          <ui:attribute name="text" key="emailLabel" description="Email form label" />
+        </g:Label>
+      </g:customCell>
+      <g:customCell>
+        <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE">
+          <g:TextBox ui:field="email" maxLength="30" styleName="{global.css.textBox}" />
+          <g:Label text="Error Message" styleName="{global.css.validationMsg}" ui:field="emailErrorLabel" />
+        </g:HorizontalPanel>
+      </g:customCell>
+    </g:row>
+    <g:row>
+      <g:customCell>
+        <g:Label text="Password" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
+          <ui:attribute name="text" key="passwordLabel" description="Password form label" />
+        </g:Label>
+      </g:customCell>
+      <g:customCell>
+        <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE">
+          <g:PasswordTextBox ui:field="password" maxLength="30" styleName="{global.css.textBox}" />
+          <g:Label text="Error Message" styleName="{global.css.validationMsg}" ui:field="passwordErrorLabel" />
+        </g:HorizontalPanel>
+      </g:customCell>
+    </g:row>
+    <g:row>
+      <g:customCell>
+        <g:Label text="Confirm" wordWrap="false" horizontalAlignment="ALIGN_RIGHT">
+          <ui:attribute name="text" key="confirmPasswordLabel" description="Confirm password form label" />
+        </g:Label>
+      </g:customCell>
+      <g:customCell>
+        <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE">
+          <g:PasswordTextBox ui:field="passwordConf" maxLength="30" styleName="{global.css.textBox}" />
+          <g:Label text="Error Message" styleName="{global.css.validationMsg}" ui:field="passwordConfErrorLabel" />
+        </g:HorizontalPanel>
+      </g:customCell>
+    </g:row>
+    <g:row>
+      <g:cell />
+      <g:customCell>
+        <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE">
+          <g:Button width="99px" ui:field="cancel" styleName="{global.css.button}">
+            <ui:msg key="cancelButtonText" description="Cancel button text">Cancel</ui:msg>
+          </g:Button>
+          <g:Button width="99px" ui:field="createUser" styleName="{global.css.button}" enabled="false">
+            <ui:msg key="submitButtonText" description="Submit button text">Submit</ui:msg>
+          </g:Button>
+          <g:Image resource="{global.workingSpinner}" styleName="{style.loginSpinner}" ui:field="workingSpinner" />
+        </g:HorizontalPanel>
+      </g:customCell>
+    </g:row>
+  </g:Grid>
 </ui:UiBinder>

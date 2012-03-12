@@ -19,7 +19,7 @@
         </g:Label>
       </g:customCell>
       <g:customCell>
-        <g:TextBox ui:field="username" maxLength="30" />
+        <g:TextBox ui:field="username" maxLength="30" styleName="{global.css.textBox}" />
       </g:customCell>
     </g:row>
     <g:row>
@@ -29,14 +29,14 @@
         </g:Label>
       </g:customCell>
       <g:customCell>
-        <g:PasswordTextBox ui:field="password" maxLength="30" />
+        <g:PasswordTextBox ui:field="password" maxLength="30" styleName="{global.css.textBox}" />
       </g:customCell>
     </g:row>
     <g:row>
       <g:cell />
       <g:customCell>
         <g:HorizontalPanel verticalAlignment="ALIGN_MIDDLE">
-          <g:Button width="99px" ui:field="signIn">
+          <g:Button width="99px" ui:field="signIn" styleName="{global.css.button}">
             <ui:msg key="signInButtonText" description="Sign in button text">Sign In</ui:msg>
           </g:Button>
           <g:Image resource="{global.workingSpinner}" styleName="{style.loginSpinner}" ui:field="workingSpinner" />

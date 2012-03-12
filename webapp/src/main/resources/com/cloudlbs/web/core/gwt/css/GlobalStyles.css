@@ -1,3 +1,16 @@
 .validationMsg {
 	color: red;
 }
+
+.button {
+	margin: 5px;
+}
+
+.textBox {
+	margin: 5px;
+}
+
+.textBoxWarning {
+	margin: 5px;
+	border-color: red;
+}

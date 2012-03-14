@@ -15,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -41,10 +42,12 @@ public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
     @UiField PasswordTextBox password;
     @UiField PasswordTextBox passwordConf;
     @UiField Button createUser;
+    @UiField Button cancel;
     @UiField Label userNameErrorLabel;
     @UiField Label emailErrorLabel;
     @UiField Label passwordErrorLabel;
     @UiField Label passwordConfErrorLabel;
+    @UiField Image workingSpinner;
 
     private boolean usernameValid = false;
     private boolean emailValid = false;
@@ -59,11 +62,19 @@ public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
         initWidget(uiBinder.createAndBindUi(this));
         this.messages = messages;
         this.style = resources.css();
+        workingSpinner.setVisible(false);
         userNameErrorLabel.setVisible(false);
         emailErrorLabel.setVisible(false);
         passwordErrorLabel.setVisible(false);
         passwordConfErrorLabel.setVisible(false);
         wrapper.setContents(this);
+    }
+
+    @Override
+    public void setWorking(boolean isWorking) {
+        workingSpinner.setVisible(isWorking);
+        createUser.setEnabled(!isWorking);
+        cancel.setEnabled(!isWorking);
     }
 
     @UiHandler("createUser")

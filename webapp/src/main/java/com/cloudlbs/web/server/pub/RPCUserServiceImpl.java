@@ -2,13 +2,13 @@ package com.cloudlbs.web.server.pub;
 
 import javax.servlet.ServletException;
 
-import com.cloudlbs.web.pub.client.RPCLoginService;
+import com.cloudlbs.web.pub.client.rpc.RPCUserService;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 import com.cloudlbs.web.service.LoginService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
-public class RPCLoginServlet extends RemoteServiceServlet implements RPCLoginService {
+public class RPCUserServiceImpl extends RemoteServiceServlet implements RPCUserService {
 
     private LoginService loginService;
 

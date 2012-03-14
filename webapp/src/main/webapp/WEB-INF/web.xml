@@ -36,12 +36,12 @@
   </filter-mapping>
 
   <servlet>
-    <servlet-name>loginServlet</servlet-name>
-    <servlet-class>com.cloudlbs.web.server.pub.RPCLoginServlet</servlet-class>
+    <servlet-name>rpcUserServlet</servlet-name>
+    <servlet-class>com.cloudlbs.web.server.pub.RPCUserServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>loginServlet</servlet-name>
-    <url-pattern>/pub/login/*</url-pattern>
+    <servlet-name>rpcUserServlet</servlet-name>
+    <url-pattern>/pub/user/*</url-pattern>
   </servlet-mapping>
 
 </web-app>

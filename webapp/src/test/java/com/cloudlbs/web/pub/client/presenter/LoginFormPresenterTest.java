@@ -16,9 +16,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.cloudlbs.web.i18n.msg.Messages;
-import com.cloudlbs.web.pub.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;
 import com.cloudlbs.web.pub.client.event.NewUserRequestEventHandler;
+import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.LoginForm;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
@@ -27,7 +27,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class LoginFormPresenterTest implements NewUserRequestEventHandler {
 
     @Mock private LoginForm<LoginCredentials> view;
-    @Mock private RPCLoginServiceAsync loginService;
+    @Mock private RPCUserServiceAsync loginService;
     @Mock private Messages messages;
     private LoginFormPresenter presenter;
     private HandlerManager eventBus;

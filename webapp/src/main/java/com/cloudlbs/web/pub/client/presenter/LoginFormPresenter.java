@@ -3,8 +3,8 @@ package com.cloudlbs.web.pub.client.presenter;
 import com.cloudlbs.web.core.gwt.ui.BaseAsyncCallback;
 import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.i18n.msg.Messages;
-import com.cloudlbs.web.pub.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;
+import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.LoginForm;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
@@ -13,14 +13,14 @@ import com.google.inject.Inject;
 
 public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginCredentials> {
 
-    private RPCLoginServiceAsync loginService;
+    private RPCUserServiceAsync loginService;
     private HandlerManager eventBus;
     private LoginForm<LoginCredentials> view;
     private Messages messages;
 
     @Inject
     public LoginFormPresenter(HandlerManager eventBus, LoginForm<LoginCredentials> view,
-            RPCLoginServiceAsync loginService, Messages messages) {
+            RPCUserServiceAsync loginService, Messages messages) {
         this.eventBus = eventBus;
         this.view = view;
         this.view.setPresenter(this);

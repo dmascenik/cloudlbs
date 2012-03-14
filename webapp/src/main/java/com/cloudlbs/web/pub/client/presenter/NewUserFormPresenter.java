@@ -25,7 +25,6 @@ public class NewUserFormPresenter implements Presenter,
 	@Override
 	public void onSubmitClicked() {
         NewUserDetails userDetails = view.getNewUserDetails();
-        System.out.println("Creating " + userDetails.getUsername());
 
 //        loginService.login(creds, new AsyncCallback<Boolean>() {
 //

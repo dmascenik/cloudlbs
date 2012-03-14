@@ -13,25 +13,25 @@ import com.google.inject.Inject;
 
 public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginCredentials> {
 
-    private RPCUserServiceAsync loginService;
+    private RPCUserServiceAsync userService;
     private HandlerManager eventBus;
     private LoginForm<LoginCredentials> view;
     private Messages messages;
 
     @Inject
     public LoginFormPresenter(HandlerManager eventBus, LoginForm<LoginCredentials> view,
-            RPCUserServiceAsync loginService, Messages messages) {
+            RPCUserServiceAsync userService, Messages messages) {
         this.eventBus = eventBus;
         this.view = view;
         this.view.setPresenter(this);
-        this.loginService = loginService;
+        this.userService = userService;
         this.messages = messages;
     }
 
     @Override
     public void onSignInClicked() {
         LoginCredentials creds = view.getLoginCredentials();
-        loginService.login(creds, new BaseAsyncCallback<Boolean>(view, messages) {
+        userService.login(creds, new BaseAsyncCallback<Boolean>(view, messages) {
             @Override
             public void success(Boolean result) {
                 if (!result) {

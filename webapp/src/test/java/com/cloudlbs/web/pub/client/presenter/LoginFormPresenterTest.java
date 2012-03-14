@@ -27,7 +27,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class LoginFormPresenterTest implements NewUserRequestEventHandler {
 
     @Mock private LoginForm<LoginCredentials> view;
-    @Mock private RPCUserServiceAsync loginService;
+    @Mock private RPCUserServiceAsync userService;
     @Mock private Messages messages;
     private LoginFormPresenter presenter;
     private HandlerManager eventBus;
@@ -52,7 +52,7 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
         /*
          * Verification
          */
-        verify(loginService).login(argCreds.capture(), argCallback.capture());
+        verify(userService).login(argCreds.capture(), argCallback.capture());
         assertEquals(creds, argCreds.getValue());
 
         verify(view, times(0)).redirectToAuthenticated();
@@ -81,7 +81,7 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
     public void before() throws Exception {
         MockitoAnnotations.initMocks(this);
         eventBus = new HandlerManager(null);
-        presenter = new LoginFormPresenter(eventBus, view, loginService, messages);
+        presenter = new LoginFormPresenter(eventBus, view, userService, messages);
     }
 
     @After

@@ -1,6 +1,7 @@
 package com.cloudlbs.web.pub.client.rpc;
 
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -8,5 +9,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface RPCUserService extends RemoteService {
 
     boolean login(LoginCredentials credentials);
+    boolean createUser(NewUserDetails details);
 
 }

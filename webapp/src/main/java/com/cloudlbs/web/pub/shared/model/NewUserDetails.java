@@ -10,6 +10,12 @@ public class NewUserDetails implements Serializable {
     private String email;
     private String password;
 
+    /**
+     * Required for GWT serialization
+     */
+    public NewUserDetails() {
+    }
+
     public NewUserDetails(String username, String email, String password) {
         this.username = username;
         this.email = email;

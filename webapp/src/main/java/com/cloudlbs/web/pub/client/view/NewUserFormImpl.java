@@ -56,6 +56,8 @@ public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
 
     private Presenter<T> presenter;
 
+    // TODO add validation on key up
+    
     @Inject
     public NewUserFormImpl(StandardPanel wrapper, Messages messages, Resources resources) {
         super(wrapper);

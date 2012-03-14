@@ -10,13 +10,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 
-public class LoginServiceImpl implements LoginService {
+public class UserServiceImpl implements UserService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
     private AuthenticationManager authenticationManager;
 
-    public LoginServiceImpl(AuthenticationManager authenticationManager) {
+    public UserServiceImpl(AuthenticationManager authenticationManager) {
         Assert.notNull(authenticationManager);
         this.authenticationManager = authenticationManager;
     }
@@ -55,6 +56,24 @@ public class LoginServiceImpl implements LoginService {
             }
             return false;
         }
+    }
+
+    @Override
+    public boolean createUser(NewUserDetails details) {
+        try {
+            // Just for playing with the working indicator
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String username = details.getUsername();
+        String password = details.getPassword();
+        if ("error".equals(username)) {
+            throw new RuntimeException("BOOM");
+        }
+        
+        return true;
     }
 
 }

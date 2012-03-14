@@ -1,4 +1,4 @@
-package com.cloudlbs.web.core.gwt;
+package com.cloudlbs.web.core.gwt.ui;
 
 import com.cloudlbs.web.i18n.msg.Messages;
 import com.google.gwt.user.client.rpc.AsyncCallback;

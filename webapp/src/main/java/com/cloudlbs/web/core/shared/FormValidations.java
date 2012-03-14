@@ -1,4 +1,4 @@
-package com.cloudlbs.web.core.gwt;
+package com.cloudlbs.web.core.shared;
 
 /**
  * Various static methods for validating form text.

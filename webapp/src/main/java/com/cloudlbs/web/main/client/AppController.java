@@ -1,6 +1,6 @@
 package com.cloudlbs.web.main.client;
 
-import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.main.client.presenter.TemporaryViewPresenter;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;

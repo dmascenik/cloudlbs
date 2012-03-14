@@ -1,7 +1,7 @@
 package com.cloudlbs.web.pub.client.presenter;
 
-import com.cloudlbs.web.core.gwt.BaseAsyncCallback;
-import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.core.gwt.ui.BaseAsyncCallback;
+import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.i18n.msg.Messages;
 import com.cloudlbs.web.pub.client.RPCLoginServiceAsync;
 import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;

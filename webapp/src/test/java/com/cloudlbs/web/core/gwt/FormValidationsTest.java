@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import static com.cloudlbs.web.core.gwt.FormValidations.*;
+import static com.cloudlbs.web.core.shared.FormValidations.*;
 
 public class FormValidationsTest {
 

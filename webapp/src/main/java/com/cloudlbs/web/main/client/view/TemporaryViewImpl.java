@@ -1,6 +1,6 @@
 package com.cloudlbs.web.main.client.view;
 
-import com.cloudlbs.web.core.gwt.BaseViewImpl;
+import com.cloudlbs.web.core.gwt.ui.BaseViewImpl;
 import com.cloudlbs.web.core.gwt.ui.wrapper.StandardPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

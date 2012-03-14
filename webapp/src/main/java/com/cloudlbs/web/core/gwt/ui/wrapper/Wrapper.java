@@ -1,6 +1,6 @@
 package com.cloudlbs.web.core.gwt.ui.wrapper;
 
-import com.cloudlbs.web.core.gwt.View;
+import com.cloudlbs.web.core.gwt.ui.View;
 import com.google.gwt.user.client.ui.Widget;
 
 /**

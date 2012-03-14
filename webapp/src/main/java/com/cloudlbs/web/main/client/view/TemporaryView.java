@@ -1,6 +1,6 @@
 package com.cloudlbs.web.main.client.view;
 
-import com.cloudlbs.web.core.gwt.View;
+import com.cloudlbs.web.core.gwt.ui.View;
 
 public interface TemporaryView<T> extends View {
 

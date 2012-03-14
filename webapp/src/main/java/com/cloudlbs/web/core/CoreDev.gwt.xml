@@ -4,5 +4,6 @@
     <inherits name="com.google.gwt.inject.Inject" />
     <inherits name="com.google.common.base.Base" />
 	<inherits name="com.InternationalizationDev" />
-	<source path="gwt" />
+    <source path="gwt" />
+    <source path="shared" />
 </module>

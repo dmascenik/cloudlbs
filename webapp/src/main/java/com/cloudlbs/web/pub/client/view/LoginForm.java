@@ -1,6 +1,6 @@
 package com.cloudlbs.web.pub.client.view;
 
-import com.cloudlbs.web.core.gwt.View;
+import com.cloudlbs.web.core.gwt.ui.View;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 
 public interface LoginForm<T> extends View {

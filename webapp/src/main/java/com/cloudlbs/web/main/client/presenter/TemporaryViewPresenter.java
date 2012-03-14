@@ -1,6 +1,6 @@
 package com.cloudlbs.web.main.client.presenter;
 
-import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.main.client.view.TemporaryView;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;

@@ -1,6 +1,6 @@
 package com.cloudlbs.web.pub.client.presenter;
 
-import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.pub.client.event.CancelCreateUserEvent;
 import com.cloudlbs.web.pub.client.view.NewUserForm;
 import com.cloudlbs.web.pub.shared.model.NewUserDetails;

@@ -1,7 +1,7 @@
 package com.cloudlbs.web.pub.client.view;
 
 import com.cloudlbs.web.core.gwt.AppConstants;
-import com.cloudlbs.web.core.gwt.BaseViewImpl;
+import com.cloudlbs.web.core.gwt.ui.BaseViewImpl;
 import com.cloudlbs.web.core.gwt.ui.wrapper.StandardPanel;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 import com.google.gwt.core.client.GWT;

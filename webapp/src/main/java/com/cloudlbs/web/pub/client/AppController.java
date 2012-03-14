@@ -1,6 +1,6 @@
 package com.cloudlbs.web.pub.client;
 
-import com.cloudlbs.web.core.gwt.Presenter;
+import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.pub.client.command.CancelNewUserCommand;
 import com.cloudlbs.web.pub.client.command.NewUserCommand;
 import com.cloudlbs.web.pub.client.event.CancelCreateUserEvent;

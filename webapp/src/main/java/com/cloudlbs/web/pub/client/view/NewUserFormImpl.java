@@ -27,10 +27,10 @@ import com.google.inject.Inject;
  * @author danmascenik
  * 
  */
-public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
+public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
 
     @UiTemplate("NewUserForm.ui.xml")
-    interface Binder extends UiBinder<Widget, NewUserFormImpl<?>> {
+    interface Binder extends UiBinder<Widget, NewUserFormImpl> {
     }
 
     private static Binder uiBinder = GWT.create(Binder.class);
@@ -54,7 +54,7 @@ public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
     private boolean passwordValid = false;
     private boolean passwordConfirmed = false;
 
-    private Presenter<T> presenter;
+    private Presenter presenter;
 
     // TODO add validation on key up
     
@@ -205,7 +205,7 @@ public class NewUserFormImpl<T> extends BaseViewImpl implements NewUserForm<T> {
     }
 
     @Override
-    public void setPresenter(Presenter<T> presenter) {
+    public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
 

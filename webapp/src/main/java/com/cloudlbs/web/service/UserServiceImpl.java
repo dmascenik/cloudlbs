@@ -68,7 +68,6 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         String username = details.getUsername();
-        String password = details.getPassword();
         if ("error".equals(username)) {
             throw new RuntimeException("BOOM");
         }

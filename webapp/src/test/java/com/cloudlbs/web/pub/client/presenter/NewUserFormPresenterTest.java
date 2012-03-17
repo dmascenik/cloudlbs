@@ -25,7 +25,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class NewUserFormPresenterTest {
 
-    @Mock private NewUserForm<NewUserDetails> view;
+    @Mock private NewUserForm view;
     @Mock private RPCUserServiceAsync userService;
     @Mock private Messages messages;
     @Mock private ChangeViewEventHandler cvHandler;

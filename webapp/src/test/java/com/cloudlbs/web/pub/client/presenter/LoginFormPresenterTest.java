@@ -25,7 +25,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class LoginFormPresenterTest {
 
-    @Mock private LoginForm<UsernamePasswordAuthentication> view;
+    @Mock private LoginForm view;
     @Mock private RPCUserServiceAsync userService;
     @Mock private Messages messages;
     @Mock private ChangeViewEventHandler cvHandler;

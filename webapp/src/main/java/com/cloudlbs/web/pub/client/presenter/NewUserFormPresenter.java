@@ -12,15 +12,15 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
-public class NewUserFormPresenter implements Presenter, NewUserForm.Presenter<NewUserDetails> {
+public class NewUserFormPresenter implements Presenter, NewUserForm.Presenter {
 
     private RPCUserServiceAsync userService;
     private HandlerManager eventBus;
-    private NewUserForm<NewUserDetails> view;
+    private NewUserForm view;
     private Messages messages;
 
     @Inject
-    public NewUserFormPresenter(HandlerManager eventBus, NewUserForm<NewUserDetails> view,
+    public NewUserFormPresenter(HandlerManager eventBus, NewUserForm view,
             RPCUserServiceAsync userService, Messages messages) {
         this.eventBus = eventBus;
         this.view = view;

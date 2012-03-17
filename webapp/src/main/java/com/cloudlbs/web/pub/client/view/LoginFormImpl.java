@@ -24,14 +24,14 @@ import com.google.inject.Inject;
  * @author danmascenik
  * 
  */
-public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
+public class LoginFormImpl extends BaseViewImpl implements LoginForm {
 
     @UiTemplate("LoginForm.ui.xml")
-    interface Binder extends UiBinder<Widget, LoginFormImpl<?>> {
+    interface Binder extends UiBinder<Widget, LoginFormImpl> {
     }
 
     private static Binder uiBinder = GWT.create(Binder.class);
-    private Presenter<T> presenter;
+    private Presenter presenter;
     private AppConstants constants;
 
     @UiField TextBox username;
@@ -93,7 +93,7 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     }
 
     @Override
-    public void setPresenter(Presenter<T> presenter) {
+    public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
 

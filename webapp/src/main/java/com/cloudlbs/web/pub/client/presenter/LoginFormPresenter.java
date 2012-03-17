@@ -12,15 +12,15 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
-public class LoginFormPresenter implements Presenter, LoginForm.Presenter<UsernamePasswordAuthentication> {
+public class LoginFormPresenter implements Presenter, LoginForm.Presenter {
 
     private RPCUserServiceAsync userService;
     private HandlerManager eventBus;
-    private LoginForm<UsernamePasswordAuthentication> view;
+    private LoginForm view;
     private Messages messages;
 
     @Inject
-    public LoginFormPresenter(HandlerManager eventBus, LoginForm<UsernamePasswordAuthentication> view,
+    public LoginFormPresenter(HandlerManager eventBus, LoginForm view,
             RPCUserServiceAsync userService, Messages messages) {
         this.eventBus = eventBus;
         this.view = view;

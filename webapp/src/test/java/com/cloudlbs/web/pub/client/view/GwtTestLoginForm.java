@@ -3,9 +3,6 @@ package com.cloudlbs.web.pub.client.view;
 import org.junit.Test;
 
 import com.cloudlbs.web.pub.client.PublicGWTTestCase;
-import com.cloudlbs.web.pub.client.view.LoginForm;
-import com.cloudlbs.web.pub.client.view.LoginFormImpl;
-import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 
 public class GwtTestLoginForm extends PublicGWTTestCase {
 
@@ -16,9 +13,9 @@ public class GwtTestLoginForm extends PublicGWTTestCase {
 
     @Test
     public void testLoginFormView() {
-        LoginForm<UsernamePasswordAuthentication> view = injector.getLoginForm();
-        assertTrue(view instanceof LoginFormImpl<?>);
-        LoginFormImpl<UsernamePasswordAuthentication> impl = (LoginFormImpl<UsernamePasswordAuthentication>) view;
+        LoginForm view = injector.getLoginForm();
+        assertTrue(view instanceof LoginFormImpl);
+        LoginFormImpl impl = (LoginFormImpl) view;
 //        eventBus.addHandler(LoginSubmitEvent.TYPE, new LoginSubmitEventHandler() {
 //
 //            @Override

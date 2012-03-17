@@ -3,7 +3,8 @@ package com.cloudlbs.web.pub.client.presenter;
 import com.cloudlbs.web.core.gwt.ui.BaseAsyncCallback;
 import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.i18n.msg.Messages;
-import com.cloudlbs.web.pub.client.event.CancelCreateUserEvent;
+import com.cloudlbs.web.pub.client.AppController.HistoryToken;
+import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
 import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.NewUserForm;
 import com.cloudlbs.web.pub.shared.model.NewUserDetails;
@@ -45,7 +46,7 @@ public class NewUserFormPresenter implements Presenter, NewUserForm.Presenter<Ne
 
     @Override
     public void onCancelClicked() {
-        eventBus.fireEvent(new CancelCreateUserEvent());
+        eventBus.fireEvent(new ChangeViewEvent(HistoryToken.LOGIN));
     }
 
     @Override

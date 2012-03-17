@@ -1,8 +1,6 @@
 package com.cloudlbs.web.pub.client.presenter;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,19 +14,21 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.cloudlbs.web.i18n.msg.Messages;
-import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;
-import com.cloudlbs.web.pub.client.event.NewUserRequestEventHandler;
+import com.cloudlbs.web.pub.client.AppController.HistoryToken;
+import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
+import com.cloudlbs.web.pub.client.event.ChangeViewEventHandler;
 import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.LoginForm;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class LoginFormPresenterTest implements NewUserRequestEventHandler {
+public class LoginFormPresenterTest {
 
     @Mock private LoginForm<LoginCredentials> view;
     @Mock private RPCUserServiceAsync userService;
     @Mock private Messages messages;
+    @Mock private ChangeViewEventHandler cvHandler;
     private LoginFormPresenter presenter;
     private HandlerManager eventBus;
 
@@ -67,14 +67,11 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
 
     @Test
     public void testCreateNewClicked() {
-        /*
-         * Add the test class as a new user request event handler, then verify
-         * that an event is received on click.
-         */
-        eventBus.addHandler(NewUserRequestEvent.TYPE, this);
-        newUserRequestReceived = false;
+        eventBus.addHandler(ChangeViewEvent.TYPE, cvHandler);
+        ArgumentCaptor<ChangeViewEvent> argEvt = ArgumentCaptor.forClass(ChangeViewEvent.class);
         presenter.onNewUserClicked();
-        assertTrue(newUserRequestReceived);
+        verify(cvHandler).doChangeView(argEvt.capture());
+        assertEquals(HistoryToken.NEW_USER.asToken(), argEvt.getValue().getHistoryToken());
     }
 
     @Before
@@ -90,14 +87,6 @@ public class LoginFormPresenterTest implements NewUserRequestEventHandler {
         view = null;
         eventBus = null;
         messages = null;
-    }
-
-    private boolean newUserRequestReceived;
-
-    @Override
-    public void onNewUserRequest(NewUserRequestEvent event) {
-        assertNotNull(event);
-        newUserRequestReceived = true;
     }
 
 }

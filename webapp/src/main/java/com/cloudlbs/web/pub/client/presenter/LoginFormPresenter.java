@@ -3,7 +3,8 @@ package com.cloudlbs.web.pub.client.presenter;
 import com.cloudlbs.web.core.gwt.ui.BaseAsyncCallback;
 import com.cloudlbs.web.core.gwt.ui.Presenter;
 import com.cloudlbs.web.i18n.msg.Messages;
-import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;
+import com.cloudlbs.web.pub.client.AppController.HistoryToken;
+import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
 import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.LoginForm;
 import com.cloudlbs.web.pub.shared.model.LoginCredentials;
@@ -45,7 +46,7 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
 
     @Override
     public void onNewUserClicked() {
-        eventBus.fireEvent(new NewUserRequestEvent());
+        eventBus.fireEvent(new ChangeViewEvent(HistoryToken.NEW_USER));
     }
 
     @Override

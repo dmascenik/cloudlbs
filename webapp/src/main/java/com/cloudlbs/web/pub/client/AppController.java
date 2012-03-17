@@ -1,10 +1,8 @@
 package com.cloudlbs.web.pub.client;
 
 import com.cloudlbs.web.core.gwt.ui.Presenter;
-import com.cloudlbs.web.pub.client.command.CancelNewUserCommand;
-import com.cloudlbs.web.pub.client.command.NewUserCommand;
-import com.cloudlbs.web.pub.client.event.CancelCreateUserEvent;
-import com.cloudlbs.web.pub.client.event.NewUserRequestEvent;
+import com.cloudlbs.web.pub.client.command.ChangeViewCommand;
+import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
 import com.cloudlbs.web.pub.client.presenter.LoginFormPresenter;
 import com.cloudlbs.web.pub.client.presenter.NewUserFormPresenter;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -28,19 +26,12 @@ import com.google.inject.Provider;
  * configuration</li>
  * <li>Create a presenter class for the view, and <code>@Inject</code> a
  * {@link Provider} for it in this class</li>
- * <li>Create a new <code>HISTORY_xxxx</code> value in this class, and handle it
- * in the {@link #onValueChange(ValueChangeEvent)} method</li>
- * <li><code>@Inject</code> a Command-pattern class for each application-wide
- * event sourced from the new presenter in the constructor</li>
  * </ul>
  * 
  * @author danmascenik
  * 
  */
 public class AppController implements Presenter, ValueChangeHandler<String> {
-
-    public static final String HISTORY_LOGIN = "login";
-    public static final String HISTORY_NEW_USER = "newuser";
 
     private final HandlerManager eBus;
     private HasWidgets container;
@@ -58,12 +49,29 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
      * in one place.
      */
     @Inject
-    public AppController(HandlerManager eventBus, NewUserCommand newUserCommand,
-            CancelNewUserCommand cancelNewUserCommand) {
+    public AppController(HandlerManager eventBus, ChangeViewCommand changeViewCommand) {
         this.eBus = eventBus;
         History.addValueChangeHandler(this);
-        eBus.addHandler(NewUserRequestEvent.TYPE, newUserCommand);
-        eBus.addHandler(CancelCreateUserEvent.TYPE, cancelNewUserCommand);
+        eBus.addHandler(ChangeViewEvent.TYPE, changeViewCommand);
+    }
+
+    /**
+     * All the history tokens that are handled by the {@link AppController}
+     * 
+     * @author danmascenik
+     * 
+     */
+    public enum HistoryToken {
+        LOGIN("login"), NEW_USER("newuser");
+
+        private String token;
+
+        HistoryToken(String token) {
+            this.token = token;
+        }
+        public String asToken() {
+            return this.token;
+        }
     }
 
     /**
@@ -74,9 +82,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public void onValueChange(ValueChangeEvent<String> event) {
         String token = event.getValue();
         if (token != null) {
-            if (token.equals(HISTORY_LOGIN)) {
+            if (token.equals(HistoryToken.LOGIN.asToken())) {
                 loginFormProvider.get().go(container);
-            } else if (token.equals(HISTORY_NEW_USER)) {
+            } else if (token.equals(HistoryToken.NEW_USER.asToken())) {
                 newUserFormProvider.get().go(container);
             }
         }
@@ -92,7 +100,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public void go(HasWidgets container) {
         this.container = container;
         if ("".equals(History.getToken())) {
-            History.newItem(HISTORY_LOGIN);
+            History.newItem(HistoryToken.LOGIN.asToken());
         } else {
             History.fireCurrentHistoryState();
         }

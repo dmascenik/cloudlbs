@@ -1,10 +1,10 @@
 package com.cloudlbs.web.pub.client.presenter;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,19 +14,21 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.cloudlbs.web.i18n.msg.Messages;
-import com.cloudlbs.web.pub.client.event.CancelCreateUserEvent;
-import com.cloudlbs.web.pub.client.event.CancelCreateUserEventHandler;
+import com.cloudlbs.web.pub.client.AppController.HistoryToken;
+import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
+import com.cloudlbs.web.pub.client.event.ChangeViewEventHandler;
 import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.NewUserForm;
 import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class NewUserFormPresenterTest implements CancelCreateUserEventHandler {
+public class NewUserFormPresenterTest {
 
     @Mock private NewUserForm<NewUserDetails> view;
     @Mock private RPCUserServiceAsync userService;
     @Mock private Messages messages;
+    @Mock private ChangeViewEventHandler cvHandler;
     private NewUserFormPresenter presenter;
     private HandlerManager eventBus;
 
@@ -62,10 +64,11 @@ public class NewUserFormPresenterTest implements CancelCreateUserEventHandler {
 
     @Test
     public void testCancelClicked() {
-        eventBus.addHandler(CancelCreateUserEvent.TYPE, this);
-        cancelCalled = false;
+        eventBus.addHandler(ChangeViewEvent.TYPE, cvHandler);
+        ArgumentCaptor<ChangeViewEvent> argEvt = ArgumentCaptor.forClass(ChangeViewEvent.class);
         presenter.onCancelClicked();
-        assertTrue(cancelCalled);
+        verify(cvHandler).doChangeView(argEvt.capture());
+        assertEquals(HistoryToken.LOGIN.asToken(), argEvt.getValue().getHistoryToken());
     }
 
     @Before
@@ -81,14 +84,6 @@ public class NewUserFormPresenterTest implements CancelCreateUserEventHandler {
         view = null;
         eventBus = null;
         messages = null;
-    }
-
-    private boolean cancelCalled;
-
-    @Override
-    public void onCancelCreateUser(CancelCreateUserEvent event) {
-        assertNotNull(event);
-        cancelCalled = true;
     }
 
 }

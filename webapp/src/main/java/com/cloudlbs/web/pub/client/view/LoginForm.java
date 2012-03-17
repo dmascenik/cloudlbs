@@ -1,7 +1,7 @@
 package com.cloudlbs.web.pub.client.view;
 
 import com.cloudlbs.web.core.gwt.ui.View;
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 
 public interface LoginForm<T> extends View {
 
@@ -20,6 +20,6 @@ public interface LoginForm<T> extends View {
     void showErrorMessage(String message);
     void clearForm();
     void redirectToAuthenticated();
-    LoginCredentials getLoginCredentials();
+    UsernamePasswordAuthentication getLoginCredentials();
 
 }

@@ -2,7 +2,7 @@ package com.cloudlbs.web.pub.shared.model;
 
 import java.io.Serializable;
 
-public class LoginCredentials implements Serializable {
+public class UsernamePasswordAuthentication implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -12,10 +12,10 @@ public class LoginCredentials implements Serializable {
     /**
      * Required for GWT serialization
      */
-    public LoginCredentials() {
+    public UsernamePasswordAuthentication() {
     }
 
-    public LoginCredentials(String username, String password) {
+    public UsernamePasswordAuthentication(String username, String password) {
         this.username = username;
         this.password = password;
     }

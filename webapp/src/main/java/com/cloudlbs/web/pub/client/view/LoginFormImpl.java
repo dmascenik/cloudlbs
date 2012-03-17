@@ -3,7 +3,7 @@ package com.cloudlbs.web.pub.client.view;
 import com.cloudlbs.web.core.gwt.AppConstants;
 import com.cloudlbs.web.core.gwt.ui.BaseViewImpl;
 import com.cloudlbs.web.core.gwt.ui.wrapper.StandardPanel;
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -86,10 +86,10 @@ public class LoginFormImpl<T> extends BaseViewImpl implements LoginForm<T> {
     }
 
     @Override
-    public LoginCredentials getLoginCredentials() {
+    public UsernamePasswordAuthentication getLoginCredentials() {
         String user = username.getValue();
         String passwd = password.getValue();
-        return new LoginCredentials(user, passwd);
+        return new UsernamePasswordAuthentication(user, passwd);
     }
 
     @Override

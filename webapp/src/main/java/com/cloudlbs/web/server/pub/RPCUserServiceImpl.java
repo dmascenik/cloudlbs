@@ -3,7 +3,7 @@ package com.cloudlbs.web.server.pub;
 import javax.servlet.ServletException;
 
 import com.cloudlbs.web.pub.client.rpc.RPCUserService;
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 import com.cloudlbs.web.service.UserService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -19,7 +19,7 @@ public class RPCUserServiceImpl extends RemoteServiceServlet implements RPCUserS
     }
 
     @Override
-    public boolean login(LoginCredentials credentials) {
+    public boolean login(UsernamePasswordAuthentication credentials) {
         return userService.login(credentials);
     }
 

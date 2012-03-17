@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 
 public class UserServiceImpl implements UserService {
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(LoginCredentials credentials) {
+    public boolean login(UsernamePasswordAuthentication credentials) {
         try {
             // Just for playing with the working indicator
             Thread.sleep(1000);

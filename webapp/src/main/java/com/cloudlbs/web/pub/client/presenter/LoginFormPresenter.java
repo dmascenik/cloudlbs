@@ -7,20 +7,20 @@ import com.cloudlbs.web.pub.client.AppController.HistoryToken;
 import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
 import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.LoginForm;
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Inject;
 
-public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginCredentials> {
+public class LoginFormPresenter implements Presenter, LoginForm.Presenter<UsernamePasswordAuthentication> {
 
     private RPCUserServiceAsync userService;
     private HandlerManager eventBus;
-    private LoginForm<LoginCredentials> view;
+    private LoginForm<UsernamePasswordAuthentication> view;
     private Messages messages;
 
     @Inject
-    public LoginFormPresenter(HandlerManager eventBus, LoginForm<LoginCredentials> view,
+    public LoginFormPresenter(HandlerManager eventBus, LoginForm<UsernamePasswordAuthentication> view,
             RPCUserServiceAsync userService, Messages messages) {
         this.eventBus = eventBus;
         this.view = view;
@@ -31,7 +31,7 @@ public class LoginFormPresenter implements Presenter, LoginForm.Presenter<LoginC
 
     @Override
     public void onSignInClicked() {
-        LoginCredentials creds = view.getLoginCredentials();
+        UsernamePasswordAuthentication creds = view.getLoginCredentials();
         userService.login(creds, new BaseAsyncCallback<Boolean>(view, messages) {
             @Override
             public void success(Boolean result) {

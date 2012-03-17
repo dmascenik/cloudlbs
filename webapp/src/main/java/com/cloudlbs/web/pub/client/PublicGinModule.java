@@ -4,7 +4,7 @@ import com.cloudlbs.web.pub.client.view.LoginForm;
 import com.cloudlbs.web.pub.client.view.LoginFormImpl;
 import com.cloudlbs.web.pub.client.view.NewUserForm;
 import com.cloudlbs.web.pub.client.view.NewUserFormImpl;
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -30,8 +30,8 @@ public class PublicGinModule extends AbstractGinModule {
      * rather verbose.
      */
     protected void bindViews() {
-        bind(new TypeLiteral<LoginForm<LoginCredentials>>() {
-        }).to(new TypeLiteral<LoginFormImpl<LoginCredentials>>() {
+        bind(new TypeLiteral<LoginForm<UsernamePasswordAuthentication>>() {
+        }).to(new TypeLiteral<LoginFormImpl<UsernamePasswordAuthentication>>() {
         }).in(Singleton.class);
 
         bind(new TypeLiteral<NewUserForm<NewUserDetails>>() {

@@ -19,13 +19,13 @@ import com.cloudlbs.web.pub.client.event.ChangeViewEvent;
 import com.cloudlbs.web.pub.client.event.ChangeViewEventHandler;
 import com.cloudlbs.web.pub.client.rpc.RPCUserServiceAsync;
 import com.cloudlbs.web.pub.client.view.LoginForm;
-import com.cloudlbs.web.pub.shared.model.LoginCredentials;
+import com.cloudlbs.web.pub.shared.model.UsernamePasswordAuthentication;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class LoginFormPresenterTest {
 
-    @Mock private LoginForm<LoginCredentials> view;
+    @Mock private LoginForm<UsernamePasswordAuthentication> view;
     @Mock private RPCUserServiceAsync userService;
     @Mock private Messages messages;
     @Mock private ChangeViewEventHandler cvHandler;
@@ -37,9 +37,9 @@ public class LoginFormPresenterTest {
         /*
          * Set up mocks and arg captors
          */
-        LoginCredentials creds = new LoginCredentials("user", "password");
+        UsernamePasswordAuthentication creds = new UsernamePasswordAuthentication("user", "password");
         when(view.getLoginCredentials()).thenReturn(creds);
-        ArgumentCaptor<LoginCredentials> argCreds = ArgumentCaptor.forClass(LoginCredentials.class);
+        ArgumentCaptor<UsernamePasswordAuthentication> argCreds = ArgumentCaptor.forClass(UsernamePasswordAuthentication.class);
         @SuppressWarnings("unchecked")
         ArgumentCaptor<AsyncCallback<Boolean>> argCallback = (ArgumentCaptor<AsyncCallback<Boolean>>) (Object) ArgumentCaptor
                 .forClass(AsyncCallback.class);

@@ -10,6 +10,7 @@ import com.cloudlbs.web.pub.shared.model.NewUserDetails;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -56,8 +57,6 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
 
     private Presenter presenter;
 
-    // TODO add validation on key up
-    
     @Inject
     public NewUserFormImpl(StandardPanel wrapper, Messages messages, Resources resources) {
         super(wrapper);
@@ -96,25 +95,49 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
     @UiHandler("email")
     void onEmailBlur(BlurEvent event) {
         validateEmail();
-        resetSubmitButton();
+    }
+
+    @UiHandler("email")
+    void onEmailKeyUp(KeyUpEvent event) {
+        if (email.getValue().trim().length() > 0) {
+            validateEmail();
+        }
     }
 
     @UiHandler("username")
     void onUsernameBlur(BlurEvent event) {
         validateUsername();
-        resetSubmitButton();
+    }
+
+    @UiHandler("username")
+    void onUsernameKeyUp(KeyUpEvent event) {
+        if (username.getValue().trim().length() > 0) {
+            validateUsername();
+        }
     }
 
     @UiHandler("password")
     void onPasswordBlur(BlurEvent event) {
         validatePassword();
-        resetSubmitButton();
+    }
+
+    @UiHandler("password")
+    void onPasswordKeyUp(KeyUpEvent event) {
+        if (password.getValue().trim().length() > 0) {
+            validatePassword();
+        }
     }
 
     @UiHandler("passwordConf")
     void onPasswordConfBlur(BlurEvent event) {
         validatePasswordConf();
-        resetSubmitButton();
+    }
+
+    @UiHandler("passwordConf")
+    void onPasswordConfKeyUp(KeyUpEvent event) {
+        if (passwordConf.getValue().trim().length() > 0) {
+            validatePasswordConf();
+        }
     }
 
     private void validateEmail() {
@@ -129,6 +152,7 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
             email.setStyleName(style.textBox());
             emailErrorLabel.setVisible(false);
         }
+        resetSubmitButton();
     }
 
     private void validateUsername() {
@@ -143,6 +167,7 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
             username.setStyleName(style.textBox());
             userNameErrorLabel.setVisible(false);
         }
+        resetSubmitButton();
     }
 
     private void validatePassword() {
@@ -157,6 +182,7 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
             password.setStyleName(style.textBox());
             passwordErrorLabel.setVisible(false);
         }
+        resetSubmitButton();
     }
 
     private void validatePasswordConf() {
@@ -172,6 +198,7 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
             passwordConf.setStyleName(style.textBox());
             passwordConfErrorLabel.setVisible(false);
         }
+        resetSubmitButton();
     }
 
     private void resetSubmitButton() {

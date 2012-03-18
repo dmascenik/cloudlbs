@@ -21,6 +21,7 @@ public interface NewUserForm extends View {
      * Things the presenter can ask the view to do
      */
     void setPresenter(Presenter presenter);
+    void clearForm();
     NewUserDetails getNewUserDetails();
 
 }

@@ -51,6 +51,7 @@ public class NewUserFormPresenter implements Presenter, NewUserForm.Presenter {
 
     @Override
     public void go(HasWidgets container) {
+        view.clearForm();
         container.clear();
         container.add(view.asWidget());
     }

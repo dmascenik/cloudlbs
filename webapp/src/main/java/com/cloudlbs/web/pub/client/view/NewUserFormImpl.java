@@ -201,7 +201,7 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
         resetSubmitButton();
     }
 
-    private void resetSubmitButton() {
+    void resetSubmitButton() {
         if (allValid()) {
             createUser.setEnabled(true);
         } else {
@@ -213,7 +213,7 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
         return allValid(false);
     }
 
-    private boolean allValid(boolean refresh) {
+    boolean allValid(boolean refresh) {
         if (refresh) {
             validateEmail();
             validateUsername();
@@ -229,6 +229,18 @@ public class NewUserFormImpl extends BaseViewImpl implements NewUserForm {
         String emailStr = email.getValue().trim();
         String passwd = password.getValue();
         return new NewUserDetails(user, emailStr, passwd);
+    }
+
+    @Override
+    public void clearForm() {
+        username.setValue("");
+        email.setValue("");
+        password.setValue("");
+        passwordConf.setValue("");
+        userNameErrorLabel.setVisible(false);
+        emailErrorLabel.setVisible(false);
+        passwordErrorLabel.setVisible(false);
+        passwordConfErrorLabel.setVisible(false);
     }
 
     @Override
